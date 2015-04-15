@@ -1,5 +1,5 @@
 ﻿package {
-	import flash.events.MouseEvent
+	import flash.events.MouseEvent;
 	import flash.system.fscommand;
 	public class Menu {
 		public var game: Game;
