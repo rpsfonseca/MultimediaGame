@@ -2,6 +2,7 @@
 	import flash.events.MouseEvent;
 	import flash.events.Event;
 	import flash.ui.Mouse;
+	import flash.display.DisplayObjectContainer;
 
 	public class Sights {
 		var main: Main;
@@ -9,7 +10,6 @@
 
 		public function Sights(main: Main) {
 			this.main = main;
-			main.addChild(sights);
 			sights.mouseEnabled = false;
 			sights.mouseChildren = false;
 			Mouse.hide();
