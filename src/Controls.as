@@ -1,0 +1,49 @@
+﻿package {
+	import flash.events.KeyboardEvent;
+	import flash.display.MovieClip;
+
+	public class Controls extends MovieClip {
+		var main: Main;
+
+		public var leftkeydown: Boolean = false;
+		public var upkeydown: Boolean = false;
+		public var rightkeydown: Boolean = false;
+		public var downkeydown: Boolean = false;
+
+		public function Controls(main: Main) {
+			this.main = main;
+			main.addEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
+			main.addEventListener(KeyboardEvent.KEY_UP, checkKeysUp);
+
+		}
+		public function checkKeysDown(event: KeyboardEvent): void {
+			if (event.keyCode == 65) {
+				leftkeydown = true;
+			}
+			if (event.keyCode == 87) {
+				upkeydown = true;
+			}
+			if (event.keyCode == 68) {
+				rightkeydown = true;
+			}
+			if (event.keyCode == 83) {
+				downkeydown = true;
+			}
+		}
+
+		public function checkKeysUp(event: KeyboardEvent): void {
+			if (event.keyCode == 65) {
+				leftkeydown = false;
+			}
+			if (event.keyCode == 87) {
+				upkeydown = false;
+			}
+			if (event.keyCode == 68) {
+				rightkeydown = false;
+			}
+			if (event.keyCode == 83) {
+				downkeydown = false;
+			}
+		}
+	}
+}
