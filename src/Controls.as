@@ -9,6 +9,7 @@
 		public var upkeydown: Boolean = false;
 		public var rightkeydown: Boolean = false;
 		public var downkeydown: Boolean = false;
+		public var capslockdown: Boolean = false;
 
 		public function Controls(main: Main) {
 			this.main = main;
@@ -28,6 +29,12 @@
 			}
 			if (event.keyCode == 83) {
 				downkeydown = true;
+			}
+			if (event.keyCode == 20) {
+				if(capslockdown)
+					capslockdown = false;
+				else 
+					capslockdown = true;
 			}
 		}
 

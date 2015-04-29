@@ -9,6 +9,8 @@
 	import flash.events.KeyboardEvent;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
+	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 
 	public class Menu extends MovieClip {
 		public var main: Main;
@@ -16,9 +18,12 @@
 		var quitBtn: QuitBtn = new QuitBtn();
 		var intro: Intro;
 		var menuScr: MenuScr = new MenuScr();
-		var introTimer: Timer = new Timer(29000, 1);
+		var introTimer: Timer = new Timer(1000, 1);
 		var cityAmbience: Sound = new Sound();
 		var request: URLRequest = new URLRequest("C:\\Users\\Pedro\\Documents\\OutOfHand\\MultimediaGame\\sound\\menu.mp3");
+		var myTransform = new SoundTransform();
+		var menuSound:SoundChannel = new SoundChannel();
+
 
 
 		public function Menu(main: Main) {
@@ -35,6 +40,7 @@
 			introTimer.addEventListener(TimerEvent.TIMER, TimerHandler);
 			cityAmbience.addEventListener(Event.COMPLETE, onSoundLoaded);
 			cityAmbience.load(request);
+
 		}
 		function newBtnClick(e: MouseEvent): void {
 			intro = new Intro();
@@ -61,6 +67,7 @@
 		}
 		function Skip_Intro(): void {
 			introTimer.stop();
+			this.removeChild(intro);
 			main.addChild(main.level1);
 			main.removeChild(main.sights.sights);
 			main.addChild(main.sights.sights);
@@ -70,8 +77,9 @@
 		}
 
 		function onSoundLoaded(event: Event): void {
-			var menuSound: Sound = event.target as Sound;
-			menuSound.play();
+			menuSound = cityAmbience.play();
+			myTransform.volume = 0.1;
+			menuSound.soundTransform = myTransform;
 		}
 	}
 }
