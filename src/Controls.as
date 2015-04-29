@@ -32,15 +32,15 @@
 				downkeydown = true;
 			}
 			if (event.keyCode == 20) {
-				if(capslockdown)
+				if (capslockdown)
 					capslockdown = false;
-				else 
+				else
 					capslockdown = true;
 			}
 			if (event.keyCode == 80) {
-				if(pkeydown)
+				if (pkeydown)
 					pkeydown = false;
-				else 
+				else
 					pkeydown = true;
 			}
 		}

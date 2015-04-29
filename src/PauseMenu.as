@@ -1,11 +1,11 @@
 ﻿package {
 	import flash.display.MovieClip;
-	import flash.system.fscommand;
 	import flash.events.MouseEvent;
 	import flash.events.KeyboardEvent;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
+	import flash.desktop.NativeApplication;
 
 	public class PauseMenu extends MovieClip{
 		var main: Main;
@@ -56,7 +56,7 @@
 		}
 
 		function quitBtnClick(e: MouseEvent): void {
-			fscommand("quit");
+			NativeApplication.nativeApplication.exit();
 		}
 
 		function resBtnClick(e: MouseEvent): void {

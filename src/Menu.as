@@ -1,7 +1,6 @@
 ﻿package {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
-	import flash.system.fscommand;
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
 	import flash.events.TimerEvent
@@ -11,6 +10,7 @@
 	import flash.net.URLRequest;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.desktop.NativeApplication;
 
 	public class Menu extends MovieClip {
 		public var main: Main;
@@ -55,7 +55,7 @@
 			introTimer.start();
 		}
 		function quitBtnClick(e: MouseEvent): void {
-			fscommand("quit");
+			NativeApplication.nativeApplication.exit();
 		}
 
 		function TimerHandler(event: TimerEvent): void {
