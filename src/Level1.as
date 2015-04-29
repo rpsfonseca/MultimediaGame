@@ -1,21 +1,15 @@
 ﻿package {
-	import flash.system.fscommand;
-	import flash.events.MouseEvent;
-	import flash.events.KeyboardEvent;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.events.TimerEvent;
 
 	public class Level1 extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
 		var char: Char;
 		var bg: Lvl1;
-		var paused = false;
-		var opBtn: QuitBtn = new QuitBtn();
-		var quitBtn: QuitBtn = new QuitBtn();
-		var resBtn: QuitBtn = new QuitBtn();
 
-		public function Level1(main: Main, mechanics: Mechanics) {
+		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
 			char = new Char();
 			bg = new Lvl1();
@@ -26,62 +20,15 @@
 			char.x = 400;
 			char.y = 650;
 			bg.y = 720;
+			
+			this.addChild(pauseMenu);
 
 			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			char.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 
-			main.addEventListener(Event.ENTER_FRAME, pauseGame);
-		}
-
-		public function pauseGame(e: Event) {
-			if (main.controls.pkeydown) {
-				if (!paused) {
-					this.addChild(opBtn);
-					this.addChild(quitBtn);
-					this.addChild(resBtn);
-					opBtn.x = 20;
-					quitBtn.x = 20;
-					resBtn.x = 20;
-					resBtn.y = 20;
-					opBtn.y = 40;
-					quitBtn.y = 60;
-					opBtn.addEventListener(MouseEvent.MOUSE_DOWN, opBtnClick);
-					quitBtn.addEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
-					resBtn.addEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
-
-					this.paused = true;
-				}
-			} else if (paused) {
-				this.removeChild(opBtn);
-				this.removeChild(quitBtn);
-				this.removeChild(resBtn);
-				opBtn.removeEventListener(MouseEvent.MOUSE_DOWN, opBtnClick);
-				quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
-				resBtn.removeEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
-				
-				this.paused = false;
-			}
-		}
-
-		function opBtnClick(e: MouseEvent): void {
-
-		}
-
-		function quitBtnClick(e: MouseEvent): void {
-			fscommand("quit");
-		}
-
-		function resBtnClick(e: MouseEvent): void {
-			this.removeChild(opBtn);
-			this.removeChild(quitBtn);
-			this.removeChild(resBtn);
-			opBtn.removeEventListener(MouseEvent.MOUSE_DOWN, opBtnClick);
-			quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
-			resBtn.removeEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
-
-			this.paused = false;
+			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 		}
 	}
 }

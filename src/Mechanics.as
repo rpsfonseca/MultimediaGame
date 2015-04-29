@@ -14,6 +14,8 @@
 		var maxSpeed = 6;
 		var speedY = 0;
 		var impulsion = 30;
+		var border1 = 0;
+		var border2 = 640;
 
 		public function Mechanics(char: Char, main: Main, bg: Lvl1) {
 			this.main = main;
@@ -34,7 +36,6 @@
 		}
 
 		public function Move(e: Event) {
-			
 			char.x += speedX;
 
 			if (main.controls.upkeydown) {
@@ -45,7 +46,7 @@
 
 			if (main.controls.rightkeydown && speedX < maxSpeed)  {
 				speedX += accelX;
-			} else if (main.controls.leftkeydown && speedX > -maxSpeed) {
+			} else if (main.controls.leftkeydown && speedX > -maxSpeed && char.x > 40) {
 				speedX -= accelX;
 			} else if (speedX <0) {
 				speedX += accelX;
