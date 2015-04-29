@@ -42,6 +42,7 @@
 			cityAmbience.load(request);
 
 		}
+		
 		function newBtnClick(e: MouseEvent): void {
 			intro = new Intro();
 			this.removeChild(newBtn);

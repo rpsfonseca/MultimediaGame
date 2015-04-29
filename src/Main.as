@@ -3,7 +3,7 @@
 	import flash.display.StageDisplayState;
 	import flash.events.Event;
 
-	public class Main extends MovieClip{
+	public class Main extends MovieClip {
 		var menu: Menu;
 		var sights: Sights;
 		var level1: Level1;

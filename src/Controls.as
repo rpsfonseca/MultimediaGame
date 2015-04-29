@@ -36,6 +36,12 @@
 				else 
 					capslockdown = true;
 			}
+			if (event.keyCode == 80) {
+				if(pkeydown)
+					pkeydown = false;
+				else 
+					pkeydown = true;
+			}
 		}
 
 		public function checkKeysUp(event: KeyboardEvent): void {
