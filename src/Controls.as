@@ -10,6 +10,7 @@
 		public var rightkeydown: Boolean = false;
 		public var downkeydown: Boolean = false;
 		public var capslockdown: Boolean = false;
+		public var pkeydown: Boolean = false;
 
 		public function Controls(main: Main) {
 			this.main = main;
