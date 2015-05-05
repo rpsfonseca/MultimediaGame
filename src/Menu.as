@@ -18,11 +18,11 @@
 		var quitBtn: QuitBtn = new QuitBtn();
 		var intro: Intro;
 		var menuScr: MenuScr = new MenuScr();
-		var introTimer: Timer = new Timer(1000, 1);
 		var cityAmbience: Sound = new Sound();
 		var request: URLRequest = new URLRequest("C:\\Users\\Pedro\\Documents\\OutOfHand\\MultimediaGame\\sound\\menu.mp3");
 		var myTransform = new SoundTransform();
 		var menuSound:SoundChannel = new SoundChannel();
+		var request2: URLRequest = new URLRequest("D:\\Music\\Bring Me The Horizon\\Bring Me The Horizon Discography (2003 - 2013)\\2010 - There Is a Hell, Believe Me I've Seen It. There Is a Heaven, Let's Keep It a Secret\\09 - Blacklist.mp3");
 
 
 
@@ -37,9 +37,9 @@
 			quitBtn.y = 60;
 			newBtn.addEventListener(MouseEvent.MOUSE_DOWN, newBtnClick);
 			quitBtn.addEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
-			introTimer.addEventListener(TimerEvent.TIMER, TimerHandler);
 			cityAmbience.addEventListener(Event.COMPLETE, onSoundLoaded);
 			cityAmbience.load(request);
+			//cityAmbience.load(request2);
 
 		}
 		
@@ -51,29 +51,23 @@
 			this.addChild(intro);
 			newBtn.removeEventListener(MouseEvent.MOUSE_DOWN, newBtnClick);
 			quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
-			main.stage.addEventListener(KeyboardEvent.KEY_DOWN, checkSkip);
-			introTimer.start();
+			main.stage.addEventListener(Event.ENTER_FRAME, checkSkip);
 		}
 		function quitBtnClick(e: MouseEvent): void {
 			NativeApplication.nativeApplication.exit();
 		}
 
-		function TimerHandler(event: TimerEvent): void {
-			Skip_Intro();
-		}
-		function checkSkip(event: KeyboardEvent): void {
-			if (event.keyCode == 13) {
+		function checkSkip(event: Event): void {
+			if ((this.intro.currentFrame == 200) || (main.controls.enterkeydown)){
 				Skip_Intro();
 			}
 		}
 		function Skip_Intro(): void {
-			introTimer.stop();
 			this.removeChild(intro);
 			main.addChild(main.level1);
 			main.removeChild(main.sights.sights);
 			main.addChild(main.sights.sights);
-			main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, checkSkip);
-			introTimer.removeEventListener(TimerEvent.TIMER, TimerHandler);
+			main.stage.removeEventListener(Event.ENTER_FRAME, checkSkip);
 			main.removeChild(main.menu);
 		}
 

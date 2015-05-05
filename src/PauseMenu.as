@@ -11,9 +11,9 @@
 		var main: Main;
 		var paused = false;
 		var pauseTimer: Timer = new Timer(33, 0);
-		var opBtn: QuitBtn = new QuitBtn();
+		var resBtn: ResBtn = new ResBtn();
+		var opBtn: OptBtn = new OptBtn();
 		var quitBtn: QuitBtn = new QuitBtn();
-		var resBtn: QuitBtn = new QuitBtn();
 
 		public function PauseMenu(main: Main) {
 			this.main = main;

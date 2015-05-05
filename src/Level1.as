@@ -6,27 +6,27 @@
 	public class Level1 extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
-		var char: Char;
+		var man: Man;
 		var bg: Lvl1;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
-			char = new Char();
+			man = new Man();
 			bg = new Lvl1();
-			this.mechanics = new Mechanics(char, this.main, bg);
+			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
-			this.addChild(char);
-			char.x = 400;
-			char.y = 650;
+			this.addChild(man);
+			man.x = 400;
+			man.y = 650;
 			bg.y = 720;
 			
 			this.addChild(pauseMenu);
 
-			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
-			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
-			char.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-			char.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 		}
