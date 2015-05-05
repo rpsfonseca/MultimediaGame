@@ -1,5 +1,5 @@
 ﻿package {
-
+	import flash.events.MouseEvent;
 	import flash.events.Event;
 
 	public class Mechanics {
@@ -13,11 +13,12 @@
 		var accelX = 1;
 		var maxSpeed = 6;
 		var speedY = 0;
-		var impulsion = 30;
+		var impulsion = 40;
 		var border1 = 0;
 		var border2 = 1324;
 		var dx: Number;
 		var dy: Number;
+		var ready: Boolean;
 
 		public function Mechanics(man: Man, main: Main, bg: Lvl1) {
 			this.main = main;
@@ -43,7 +44,7 @@
 			else if (man.x > 0 || man.x < 1280)
 				man.x += speedX;
 
-			if (main.controls.upkeydown) {
+			if (main.controls.spacekeydown) {
 				jumping = true;
 				if (man.y == 650)
 					speedY = -impulsion;
@@ -58,7 +59,6 @@
 			} else if (speedX > 0) {
 				speedX -= 1;
 			}
-			//char.arm.rotation = Math.abs( Math.acos((main.stage.mouseY - char.y)/(Math.sqrt(Math.pow(main.stage.mouseX-char.x, 2) + Math.pow(main.stage.mouseY-char.y, 2)))) * 180 / Math.PI );
 
 			/*dx = main.stage.mouseX - man.x;
 			dy = main.stage.mouseY - man.y + 120;
@@ -89,6 +89,9 @@
 				} else
 					man.gotoAndStop(3);
 			} else
+			if (ready)
+				man.gotoAndStop(6);
+			else
 				man.gotoAndStop(1);
 		}
 
@@ -101,6 +104,17 @@
 				accelX = 1;
 			}
 		}
-
+		public function ReadyStance(e: Event): void {
+			dx = main.stage.mouseX - man.x + 15;
+			dy = main.stage.mouseY - man.y + 115;
+			man.arms.rotation = (Math.atan2(dy, dx) * 180 / Math.PI);
+			if (speedX == 0) {
+				man.arms.alpha = 1;
+				ready = true;
+			} else {
+				man.arms.alpha = 0;
+				ready = false;
+			}
+		}
 	}
 }

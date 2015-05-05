@@ -12,6 +12,7 @@
 		public var capslockdown: Boolean = false;
 		public var pkeydown: Boolean = false;
 		public var enterkeydown: Boolean = false;
+		public var spacekeydown: Boolean = false;
 
 		public function Controls(main: Main) {
 			this.main = main;
@@ -47,6 +48,9 @@
 			if (event.keyCode == 13) {
 				enterkeydown = true;
 			}
+			if (event.keyCode == 32) {
+				spacekeydown = true;
+			}
 		}
 
 		public function checkKeysUp(event: KeyboardEvent): void {
@@ -64,6 +68,9 @@
 			}
 			if (event.keyCode == 13) {
 				enterkeydown = false;
+			}
+			if (event.keyCode == 32) {
+				spacekeydown = false;
 			}
 		}
 	}

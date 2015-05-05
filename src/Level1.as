@@ -2,6 +2,7 @@
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.events.MouseEvent;
 
 	public class Level1 extends MovieClip {
 		var main: Main;
@@ -20,13 +21,14 @@
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
-			
+
 			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ReadyStance);
 
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 		}
