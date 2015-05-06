@@ -13,6 +13,7 @@
 		public var pkeydown: Boolean = false;
 		public var enterkeydown: Boolean = false;
 		public var spacekeydown: Boolean = false;
+		public var rkeydown: Boolean = false;
 
 		public function Controls(main: Main) {
 			this.main = main;
@@ -50,6 +51,12 @@
 			}
 			if (event.keyCode == 32) {
 				spacekeydown = true;
+			}
+			if (event.keyCode == 82) {
+				if (rkeydown)
+					rkeydown = false;
+				else
+					rkeydown = true;
 			}
 		}
 

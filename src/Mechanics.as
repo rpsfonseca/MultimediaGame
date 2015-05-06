@@ -41,8 +41,16 @@
 		public function Move(e: Event) {
 			if ((man.x >= 640 && bg.x > -1324 && speedX > 0) || (man.x < 400 && bg.x < -10 && speedX < 0))
 				bg.x -= speedX;
-			else if (man.x > 0 || man.x < 1280)
+			else if (man.x > 0){
+				if(man.x <80){
+					man.x = 80;
+				}
 				man.x += speedX;
+				if(man.x >1100){
+					man.x = 1100;
+				}
+			}
+				
 
 			if (main.controls.spacekeydown) {
 				jumping = true;
@@ -59,10 +67,6 @@
 			} else if (speedX > 0) {
 				speedX -= 1;
 			}
-
-			/*dx = main.stage.mouseX - man.x;
-			dy = main.stage.mouseY - man.y + 120;
-			man.rotation = (Math.atan2(dy, dx) * 180 / Math.PI);*/
 		}
 
 		public function Animate(e: Event) {
@@ -74,7 +78,7 @@
 					orient = 2;
 				}
 				man.scaleX = 1;
-				if (speedX > 6) {
+				if (speedX > 8) {
 					man.gotoAndStop(4);
 				} else
 					man.gotoAndStop(3);
@@ -84,7 +88,7 @@
 					orient = 1;
 				}
 				man.scaleX = -1;
-				if (speedX < -6) {
+				if (speedX < -8) {
 					man.gotoAndStop(4);
 				} else
 					man.gotoAndStop(3);
@@ -97,24 +101,40 @@
 
 		public function ToggleSprint(e: Event) {
 			if (main.controls.capslockdown) {
-				maxSpeed = 14;
+				maxSpeed = 18;
 				accelX = 2;
 			} else {
-				maxSpeed = 6;
+				maxSpeed = 8;
 				accelX = 1;
 			}
 		}
-		public function ReadyStance(e: Event): void {
+
+		public function ToggleReady(e: Event): void {
 			dx = main.stage.mouseX - man.x + 15;
 			dy = main.stage.mouseY - man.y + 115;
-			man.arms.rotation = (Math.atan2(dy, dx) * 180 / Math.PI);
-			if (speedX == 0) {
-				man.arms.alpha = 1;
+			if ((Math.atan2(dy, dx) * 180 / Math.PI) > -90 && (Math.atan2(dy, dx) * 180 / Math.PI) < 90) {
+				man.rArm.rotation = (Math.atan2(dy, dx) * 180 / Math.PI);
+				man.lArm.rotation = man.rArm.rotation;
+				
+			} else {
+				man.rArm.rotation = -(Math.atan2(dy, dx) * 180 / Math.PI);
+				man.lArm.rotation = man.rArm.rotation;
+				
+			}
+			if (main.controls.rkeydown) {
+				man.rArm.alpha = 1;
+				man.lArm.alpha = 1;
 				ready = true;
 			} else {
-				man.arms.alpha = 0;
+				man.rArm.alpha = 0;
+				man.lArm.alpha = 0;
 				ready = false;
 			}
+			main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
+		}
+		public function Shoot(e: MouseEvent): void {
+			man.rArm.gotoAndPlay(1);
+			man.lArm.gotoAndPlay(1);
 		}
 	}
 }

@@ -28,7 +28,7 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ReadyStance);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 		}
