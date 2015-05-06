@@ -40,7 +40,7 @@
 				else
 					capslockdown = true;
 			}
-			if (event.keyCode == 80) {
+			if (event.keyCode == 80 || event.keyCode == 27) {
 				if (pkeydown)
 					pkeydown = false;
 				else
