@@ -22,10 +22,11 @@
 		public function pauseGame(e: TimerEvent) {
 			if (main.controls.pkeydown) {
 				if (!paused) {
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
-					//this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ReadyStance);
+					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Gravity);
+					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Move);
+					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Animate);
+					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleSprint);
+					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleReady);
 
 					this.addChild(opBtn);
 					this.addChild(quitBtn);
@@ -51,10 +52,11 @@
 				quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
 				resBtn.removeEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
 
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
-				//this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.mechanics.ReadyStance);
+				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Gravity);
+				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Move);
+				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Animate);
+				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleSprint);
+				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleReady);
 
 
 				this.paused = false;
