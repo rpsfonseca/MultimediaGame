@@ -18,9 +18,15 @@
 
 			this.addChild(bg);
 			this.addChild(man);
+
+		    this.main.stage.visible = true;
+		    this.main.stage.alpha = 1;
+
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
+
+			man.focusEnabled = false;
 
 			this.addChild(pauseMenu);
 
@@ -33,4 +39,14 @@
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 		}
 	}
+
+	/*function onFinish(e: Event) {
+		this.main.stage.alpha -= 0.5 // change this value as per the speed of fade required
+
+		if ( this.main.stage.alpha <= 0 ) {
+		    this.main.stage.visible = false
+		    this.main.stage.alpha = 1 ;
+		    removeEventListener(Event.ENTER_FRAME, onFinish); // TODO: CHECK EVENTS ENTER_FRAME
+		}
+	}*/
 }

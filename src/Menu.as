@@ -22,8 +22,6 @@
 		var request: URLRequest = new URLRequest("C:\\Users\\Pedro\\Documents\\OutOfHand\\MultimediaGame\\sound\\menu.mp3");
 		var myTransform = new SoundTransform();
 		var menuSound:SoundChannel = new SoundChannel();
-		var request2: URLRequest = new URLRequest("D:\\Music\\Bring Me The Horizon\\Bring Me The Horizon Discography (2003 - 2013)\\2010 - There Is a Hell, Believe Me I've Seen It. There Is a Heaven, Let's Keep It a Secret\\09 - Blacklist.mp3");
-
 
 
 		public function Menu(main: Main) {
@@ -39,7 +37,6 @@
 			quitBtn.addEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
 			cityAmbience.addEventListener(Event.COMPLETE, onSoundLoaded);
 			cityAmbience.load(request);
-			//cityAmbience.load(request2);
 
 		}
 		
@@ -58,11 +55,16 @@
 		}
 
 		function checkSkip(event: Event): void {
+			if ((this.intro.currentFrame >= 50) && (this.intro.currentFrame < 80)) {
+				main.stage.alpha -= 0.033;
+			}			}
 			if ((this.intro.currentFrame == 80) || (main.controls.enterkeydown)){
 				Skip_Intro();
 			}
 		}
+
 		function Skip_Intro(): void {
+			this.main.stage.visible = false;
 			this.removeChild(intro);
 			main.addChild(main.level1);
 			main.removeChild(main.sights.sights);

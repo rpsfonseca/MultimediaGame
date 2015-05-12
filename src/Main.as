@@ -24,6 +24,7 @@
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, escOverride);
 		}
+		
 		private function escOverride(e: KeyboardEvent): void {
 			if (e.keyCode == 27)
 				e.preventDefault();
