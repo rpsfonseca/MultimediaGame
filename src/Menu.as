@@ -1,5 +1,5 @@
 ﻿package {
-	import flash.display.MovieClip;
+	import flash.display.*;
 	import flash.events.MouseEvent;
 	import flash.utils.Timer;
 	import flash.utils.getTimer;
@@ -49,6 +49,8 @@
 			newBtn.removeEventListener(MouseEvent.MOUSE_DOWN, newBtnClick);
 			quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
 			main.stage.addEventListener(Event.ENTER_FRAME, checkSkip);
+			addChild(main.fade);
+			main.fade.alpha = 0;
 		}
 		function quitBtnClick(e: MouseEvent): void {
 			NativeApplication.nativeApplication.exit();
@@ -56,15 +58,14 @@
 
 		function checkSkip(event: Event): void {
 			if ((this.intro.currentFrame >= 50) && (this.intro.currentFrame < 80)) {
-				main.stage.alpha -= 0.033;
-			}			}
+				main.fade.alpha += 0.033;
+			}			
 			if ((this.intro.currentFrame == 80) || (main.controls.enterkeydown)){
 				Skip_Intro();
 			}
 		}
 
 		function Skip_Intro(): void {
-			this.main.stage.visible = false;
 			this.removeChild(intro);
 			main.addChild(main.level1);
 			main.removeChild(main.sights.sights);

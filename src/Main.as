@@ -3,6 +3,7 @@
 	import flash.display.StageDisplayState;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import fl.transitions.Fade;
 
 	public class Main extends MovieClip {
 		var menu: Menu;
@@ -11,6 +12,7 @@
 		var controls: Controls;
 		var mechanics: Mechanics;
 		var pauseMenu: PauseMenu;
+		var fade: Fade2Black;
 
 		public function Main() {
 			controls = new Controls(this);
@@ -18,6 +20,7 @@
 			sights = new Sights(this);
 			pauseMenu = new PauseMenu(this);
 			level1 = new Level1(this, mechanics, pauseMenu);
+			fade = new Fade2Black;
 			addChild(controls);
 			addChild(menu);
 			addChild(sights.sights);

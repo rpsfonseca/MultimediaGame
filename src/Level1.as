@@ -1,5 +1,5 @@
 ﻿package {
-	import flash.display.MovieClip;
+	import flash.display.*;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.events.MouseEvent;
@@ -19,14 +19,12 @@
 			this.addChild(bg);
 			this.addChild(man);
 
-		    this.main.stage.visible = true;
-		    this.main.stage.alpha = 1;
-
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
 
-			man.focusEnabled = false;
+			
+			man.mouseEnabled = false;
 
 			this.addChild(pauseMenu);
 

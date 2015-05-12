@@ -91,8 +91,11 @@
 				}
 				if (speedX > 8) {
 					man.gotoAndStop(4);
-				} else
+					man.mRun.mouseEnabled = false;
+				} else {
 					man.gotoAndStop(3);
+					man.mWalk.mouseEnabled = false;
+				}
 			} else if (speedX < 0) {
 				if (orient == 2) {
 					man.x += 40;
@@ -101,8 +104,11 @@
 				}
 				if (speedX < -8) {
 					man.gotoAndStop(4);
-				} else
+					man.mRun.mouseEnabled = false;
+				} else {
 					man.gotoAndStop(3);
+					man.mWalk.mouseEnabled = false;
+				}
 			} else
 				man.gotoAndStop(1);
 		}
@@ -124,6 +130,8 @@
 				maxSpeed = 12;
 				walkSpeed = 12;
 				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
+				man.lArm.mouseEnabled = false;
+				man.rArm.mouseEnabled = false;
 			} else {
 				ready = false;
 				maxSpeed = 18;
