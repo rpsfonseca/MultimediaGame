@@ -9,9 +9,10 @@ package {
 		var mechanics: Mechanics;
 		var man: Man;
 		var bg: Aly;
+		var pass: Boolean;
 
 		public function Alley(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
-			
+			pass = false;
 		}
 	}
 
@@ -24,4 +25,15 @@ package {
 		    removeEventListener(Event.ENTER_FRAME, onFinish); // TODO: CHECK EVENTS ENTER_FRAME
 		}
 	}*/
+
+	function interaction(){
+		if( main.x == ) //inserir raio e / ou posiçao de interaçao
+			if(main.controls.ekeydown && pass == false){
+				pass = true;
+				//start animation for password
+			}
+			else if(main.controls.ekeydown && pass == true){
+				//start filler animation
+			}
+	}
 }

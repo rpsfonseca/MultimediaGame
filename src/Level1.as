@@ -42,8 +42,12 @@
 
 	function interaction() {
 		if ( man.x == /* VER VALOR */ ) {
-			if ( main.controls.ekeydown ) {
-				
+			if ( main.controls.ekeydown && pass == false) {
+				pass = true;
+				//start dialog animation
+			}
+			else if(main.controls.ekeydown && pass == true) {
+				//start filler dialog animation
 			}
 		}
 	}
