@@ -21,7 +21,7 @@
 			pauseMenu = new PauseMenu(this);
 			level1 = new Level1(this, mechanics, pauseMenu);
 			fade = new Fade2Black;
-			addChild(controls);
+			stage.addChild(controls);
 			addChild(menu);
 			addChild(sights.sights);
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;

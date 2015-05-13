@@ -17,8 +17,8 @@
 
 		public function Controls(main: Main) {
 			this.main = main;
-			main.addEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
-			main.addEventListener(KeyboardEvent.KEY_UP, checkKeysUp);
+			main.stage.addEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
+			main.stage.addEventListener(KeyboardEvent.KEY_UP, checkKeysUp);
 
 		}
 		public function checkKeysDown(event: KeyboardEvent): void {

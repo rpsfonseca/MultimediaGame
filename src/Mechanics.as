@@ -5,7 +5,7 @@
 
 	public class Mechanics {
 		var main: Main;
-		var bg: Lvl1;
+		var bg: Lvl2;
 		var man: Man;
 		var orient: Number = 2;
 		var jumping: Boolean = false;
@@ -28,7 +28,7 @@
 		var bulletSpeedx: Array = new Array();
 		var bulletSpeedy: Array = new Array();
 
-		public function Mechanics(man: Man, main: Main, bg: Lvl1) {
+		public function Mechanics(man: Man, main: Main, bg: Lvl2) {
 			this.main = main;
 			this.bg = bg;
 			this.man = man;
@@ -45,6 +45,7 @@
 				speedY = 0;
 				jumping = false;
 			}
+			main.stage.focus = main.stage;
 		}
 
 		public function Move(e: Event) {
@@ -91,10 +92,8 @@
 				}
 				if (speedX > 8) {
 					man.gotoAndStop(4);
-					man.mRun.mouseEnabled = false;
 				} else {
 					man.gotoAndStop(3);
-					man.mWalk.mouseEnabled = false;
 				}
 			} else if (speedX < 0) {
 				if (orient == 2) {
@@ -104,10 +103,8 @@
 				}
 				if (speedX < -8) {
 					man.gotoAndStop(4);
-					man.mRun.mouseEnabled = false;
 				} else {
 					man.gotoAndStop(3);
-					man.mWalk.mouseEnabled = false;
 				}
 			} else
 				man.gotoAndStop(1);
@@ -130,8 +127,6 @@
 				maxSpeed = 12;
 				walkSpeed = 12;
 				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
-				man.lArm.mouseEnabled = false;
-				man.rArm.mouseEnabled = false;
 			} else {
 				ready = false;
 				maxSpeed = 18;

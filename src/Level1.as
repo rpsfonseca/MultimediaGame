@@ -8,12 +8,12 @@
 		var main: Main;
 		var mechanics: Mechanics;
 		var man: Man;
-		var bg: Lvl1;
+		var bg: Lvl2;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
 			man = new Man();
-			bg = new Lvl1();
+			bg = new Lvl2();
 			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
@@ -23,8 +23,6 @@
 			man.y = 650;
 			bg.y = 720;
 
-			
-			man.mouseEnabled = false;
 
 			this.addChild(pauseMenu);
 
