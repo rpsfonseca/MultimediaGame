@@ -4,13 +4,16 @@
 	import flash.events.TimerEvent;
 	import flash.events.MouseEvent;
 
-	public class Level1 extends Level {
+	public class Level1 extends MovieClip {
+		var main: Main;
+		var mechanics: Mechanics;
 		var bg: Lvl1;
 		var pass: Boolean = false;
 		var man: Man;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
-			super(main, mechanics, pauseMenu);
+			//super(main, mechanics, pauseMenu);
+			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
@@ -21,6 +24,8 @@
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
+			
+			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
@@ -28,6 +33,8 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 
+			
+			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 
 		}
 	}

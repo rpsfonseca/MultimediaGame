@@ -22,12 +22,7 @@
 		public function pauseGame(e: TimerEvent) {
 			if (main.controls.pkeydown) {
 				if (!paused) {
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Gravity);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Move);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Animate);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleSprint);
-					this.main.level1.man.removeEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleReady);
-
+					
 					this.addChild(opBtn);
 					this.addChild(quitBtn);
 					this.addChild(resBtn);
@@ -42,7 +37,7 @@
 					resBtn.addEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
 
 					this.paused = true;
-					//stage.frameRate = 0;
+					stage.frameRate = 0;
 				}
 			} else if (paused) {
 				this.removeChild(opBtn);
@@ -52,15 +47,8 @@
 				quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
 				resBtn.removeEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
 
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Gravity);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Move);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.Animate);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleSprint);
-				this.main.level1.man.addEventListener(Event.ENTER_FRAME, this.main.level1.mechanics.ToggleReady);
-
-
 				this.paused = false;
-				//stage.frameRate = 30;
+				stage.frameRate = 30;
 			}
 		}
 

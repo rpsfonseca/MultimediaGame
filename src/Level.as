@@ -9,12 +9,8 @@
 		var mechanics: Mechanics;
 		var pauseMenu: PauseMenu;
 
-
 		public function Level(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
-			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
-			this.addChild(main.pauseMenu);
-
 			}
 		}
 	}
