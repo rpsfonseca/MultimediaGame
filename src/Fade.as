@@ -10,13 +10,13 @@ package {
     var mechanics: Mechanics;
     var level1: Level1;
 
-		public function Fade(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu, level1: Level1) {
+		public function Fade(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu, level: Level) {
 
 		}
 
 
     function fadeOutLevel1(event: Event) {
-			if ((level1.intro.currentFrame >= 50) && (level1.intro.currentFrame < 80)) {
+			if ((level.intro.currentFrame >= 50) && (level.intro.currentFrame < 80)) {
 				main.fade.alpha += 0.033;
 			}
 		}
