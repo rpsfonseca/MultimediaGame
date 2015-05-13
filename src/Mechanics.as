@@ -5,7 +5,7 @@
 
 	public class Mechanics {
 		var main: Main;
-		var bg: Lvl1;
+		var bg: Lvl;
 		var man: Man;
 		var orient: Number = 2;
 		var jumping: Boolean = false;
@@ -17,8 +17,10 @@
 		var walkSpeed = 8;
 		var speedY = 0;
 		var impulsion = 40;
-		var border1 = 0;
-		var border2 = 1324;
+		var border1: Number;
+		var border2: Number;
+		var lim1: Number;
+		var lim2: Number;
 		var dx: Number;
 		var dy: Number;
 		var ready: Boolean;
@@ -27,8 +29,9 @@
 		var i: Number = -1;
 		var bulletSpeedx: Array = new Array();
 		var bulletSpeedy: Array = new Array();
+		var ground: Number;
 
-		public function Mechanics(man: Man, main: Main, bg: Lvl1) {
+		public function Mechanics(man: Man, main: Main, bg: Lvl) {
 			this.main = main;
 			this.bg = bg;
 			this.man = man;
@@ -40,8 +43,8 @@
 			speedY += gravity;
 			man.y += speedY;
 
-			if (man.y > 650) {
-				man.y = 650;
+			if (man.y > ground) {
+				man.y = ground;
 				speedY = 0;
 				jumping = false;
 			}
@@ -49,21 +52,23 @@
 		}
 
 		public function Move(e: Event) {
-			if ((man.x >= 640 && bg.x > -1324 && speedX > 0) || (man.x < 400 && bg.x < -10 && speedX < 0))
+			if ((man.x >= 640 && bg.x > border2 && speedX > 0) || (man.x < 560 && bg.x < border1 && speedX < 0))
 				bg.x -= speedX;
 			else if (man.x > 0) {
-				if (man.x < 80) {
-					man.x = 80;
-				}
 				man.x += speedX;
-				if (man.x > 1100) {
-					man.x = 1100;
+				if (man.x < lim1) {
+					man.x = lim1;
+					speedX = 0;
+				}
+				if (man.x > lim2) {
+					man.x = lim2;
+					speedX = 0;
 				}
 			}
 
 			if (main.controls.spacekeydown) {
 				jumping = true;
-				if (man.y == 650)
+				if (man.y == ground)
 					speedY = -impulsion;
 			}
 

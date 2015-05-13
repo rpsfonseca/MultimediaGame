@@ -7,7 +7,7 @@
 	public class Level1 extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
-		var bg: Lvl1;
+		var bg: Lvl;
 		var pass: Boolean = false;
 		var man: Man;
 
@@ -16,6 +16,7 @@
 			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
+
 			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
@@ -24,7 +25,7 @@
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
-			
+
 			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
@@ -32,13 +33,41 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
-
 			
+			this.mechanics.ground = 650;
+			this.mechanics.border1 = 0;
+			this.mechanics.border2 = -1324;
+			this.mechanics.lim1 = 80;
+			this.mechanics.lim2 = 1100;
+
+
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
+			this.addEventListener(Event.ENTER_FRAME, checkAlley);
 
 		}
+
+		function checkAlley(e: Event) {
+			if (man.x > 1000 && man.x < 1100 && main.controls.upkeydown) {
+				this.removeChild(bg);
+				man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+				man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+				man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
+				man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+				man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+				this.removeChild(man);
+				main.removeChild(main.level1);
+				main.removeChild(main.sights.sights);
+				main.addChild(main.alley);
+				main.addChild(main.sights.sights);
+				this.removeEventListener(Event.ENTER_FRAME, checkAlley)
+			}
+		}
+
 	}
-/*
+
+
+
+	/*
 	function interaction() {
 		if ( man.x == VER VALOR ) {
 			if ( main.controls.ekeydown && pass == false) {
