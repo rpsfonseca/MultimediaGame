@@ -9,6 +9,7 @@
 		var mechanics: Mechanics;
 		var man: Man;
 		var bg: Lvl1;
+		var pass: Boolean;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
@@ -19,11 +20,12 @@
 			this.addChild(bg);
 			this.addChild(man);
 
+			pass = false;
+
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
 
-			
 			man.mouseEnabled = false;
 
 			this.addChild(pauseMenu);
@@ -35,6 +37,14 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
+		}
+	}
+
+	function interaction() {
+		if ( man.x == /* VER VALOR */ ) {
+			if ( main.controls.ekeydown ) {
+				
+			}
 		}
 	}
 

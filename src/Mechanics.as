@@ -60,7 +60,6 @@
 				}
 			}
 
-
 			if (main.controls.spacekeydown) {
 				jumping = true;
 				if (man.y == 650)
