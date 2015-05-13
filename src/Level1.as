@@ -6,26 +6,34 @@
 
 	public class Level1 extends Level {
 		var bg: Lvl1;
-		var pass: Boolean;
+		var pass: Boolean = false;
+		var man: Man;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
-			super(main,mechanics,pauseMenu);
+			super(main, mechanics, pauseMenu);
+			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
-			this.pass = false;
+			this.addChild(man);
 
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
 
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+
 
 		}
 	}
-
+/*
 	function interaction() {
-		if ( man.x == /* VER VALOR */ ) {
+		if ( man.x == VER VALOR ) {
 			if ( main.controls.ekeydown && pass == false) {
 				pass = true;
 				//start dialog animation
@@ -34,7 +42,7 @@
 				//start filler dialog animation
 			}
 		}
-	}
+	}*/
 
 	/*function onFinish(e: Event) {
 		this.main.stage.alpha -= 0.5 // change this value as per the speed of fade required

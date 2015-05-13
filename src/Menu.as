@@ -58,7 +58,7 @@
 		}
 
 		function checkSkip(event: Event): void {
-			fadeOut();
+			//fadeOut();
 			if ((this.intro.currentFrame == 80) || (main.controls.enterkeydown)){
 				Skip_Intro();
 			}

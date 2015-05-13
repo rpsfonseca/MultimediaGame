@@ -59,7 +59,7 @@
 				else
 					rkeydown = true;
 			}
-			if(event.KeyCode == 69) {
+			if(event.keyCode == 69) {
 				if(ekeydown)
 					ekeydown = false;
 				else

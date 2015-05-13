@@ -5,7 +5,7 @@
 
 	public class Mechanics {
 		var main: Main;
-		var bg: Lvl2;
+		var bg: Lvl1;
 		var man: Man;
 		var orient: Number = 2;
 		var jumping: Boolean = false;
@@ -28,7 +28,7 @@
 		var bulletSpeedx: Array = new Array();
 		var bulletSpeedy: Array = new Array();
 
-		public function Mechanics(man: Man, main: Main, bg: Lvl2) {
+		public function Mechanics(man: Man, main: Main, bg: Lvl1) {
 			this.main = main;
 			this.bg = bg;
 			this.man = man;
