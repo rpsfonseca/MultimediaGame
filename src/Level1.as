@@ -3,14 +3,19 @@
 	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Transform;
+	import flash.geom.ColorTransform;
+	import fl.motion.Color;
 
 	public class Level1 extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
 		var bg: Lvl;
-		var pass: Boolean = false;
-		var entering: Boolean = false;
 		var man: Man;
+		var pass: Boolean = false;
+		var fadeout: Boolean = false;
+		var fadein: Boolean = false;
+		var color: Color = new Color();
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
@@ -43,17 +48,20 @@
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 			this.addEventListener(Event.ENTER_FRAME, move2Alley);
 
+			color.brightness = 0;
+
 		}
 
 		function move2Alley(e: Event) {
 			if (man.x > 900 && man.x < 1200) {
 				if (main.controls.upkeydown) {
-					entering = true;
+					fadeout = true;
 				}
-				if (entering) {
+				if (fadeout) {
 					main.controls.rkeydown = false;
 					if (bg.alpha > 0) {
-						man.alpha -= 0.033;
+						color.brightness -= 0.033;
+						man.transform.colorTransform = color;
 						bg.alpha -= 0.033;
 						this.mechanics.speedX = 0;
 						this.mechanics.speedY = 0;
@@ -61,20 +69,38 @@
 						man.gotoAndStop(6);
 						man.y -= 6;
 					} else {
-						removeChild(bg);
-						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
-						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
-						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
-						removeChild(man);
-						main.removeChild(main.level1);
-						main.removeChild(main.sights.sights);
-						main.alley = new Alley(main, mechanics, main.pauseMenu);
-						main.addChild(main.alley);
-						main.alley.man.x = 400;
-						main.addChild(main.sights.sights);
-						removeEventListener(Event.ENTER_FRAME, move2Alley);
+						if (!fadein) {
+							removeChild(bg);
+							man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+							man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+							man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
+							man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+							man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+							removeChild(man);
+							main.removeChild(main.level1);
+							main.removeChild(main.sights.sights);
+							main.alley = new Alley(main, mechanics, main.pauseMenu);
+							main.alley.bg.alpha = 0;
+							color.brightness = -1;
+							main.alley.man.transform.colorTransform = color;
+							main.addChild(main.alley);
+							main.addChild(main.sights.sights);
+							main.alley.man.x = 400;
+							fadein = true;
+						} else {
+							main.alley.bg.alpha += 0.033;
+							if(color.brightness < 0)
+								color.brightness += 0.033;
+							main.alley.man.transform.colorTransform = color;
+							this.mechanics.speedX = 0;
+							this.mechanics.speedY = 0;
+							main.level1.man.scaleX = 1;
+							main.level1.man.y -= 1;
+							main.level1.man.gotoAndStop(5);
+							if (main.alley.bg.alpha == 1) {
+								this.removeEventListener(Event.ENTER_FRAME, move2Alley);
+							}
+						}
 					}
 				}
 			}
