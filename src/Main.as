@@ -21,7 +21,6 @@
 			sights = new Sights(this);
 			pauseMenu = new PauseMenu(this);
 			level1 = new Level1(this, mechanics, pauseMenu);
-			alley = new Alley(this, mechanics, pauseMenu);
 			fade = new Fade2Black;
 			stage.addChild(controls);
 			addChild(menu);

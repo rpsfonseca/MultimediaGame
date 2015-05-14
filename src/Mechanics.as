@@ -85,7 +85,7 @@
 
 		public function Animate(e: Event) {
 			if (ready)
-				man.gotoAndStop(6);
+				man.gotoAndStop(7);
 			else if (jumping)
 				man.gotoAndStop(2);
 			else if (speedX > 0) {
@@ -127,7 +127,7 @@
 		public function ToggleReady(e: Event): void {
 			if (main.controls.rkeydown) {
 				ready = true;
-				man.gotoAndStop(6);
+				man.gotoAndStop(7);
 				maxSpeed = 12;
 				walkSpeed = 12;
 				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
