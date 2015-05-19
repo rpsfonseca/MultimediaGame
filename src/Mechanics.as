@@ -84,9 +84,13 @@
 		}
 
 		public function Animate(e: Event) {
-			if (ready)
-				man.gotoAndStop(7);
-			else if (jumping)
+			if (ready){
+				if(speedX != 0){
+					man.gotoAndStop(8);
+				} else {
+					man.gotoAndStop(7);
+				}
+			} else if (jumping)
 				man.gotoAndStop(2);
 			else if (speedX > 0) {
 				if (orient == 1) {
@@ -94,7 +98,7 @@
 					orient = 2;
 					man.scaleX = 1;
 				}
-				if (speedX > 8) {
+				if (speedX > 10) {
 					man.gotoAndStop(4);
 				} else {
 					man.gotoAndStop(3);
@@ -105,7 +109,7 @@
 					orient = 1;
 					man.scaleX = -1;
 				}
-				if (speedX < -8) {
+				if (speedX < -10) {
 					man.gotoAndStop(4);
 				} else {
 					man.gotoAndStop(3);
@@ -120,16 +124,28 @@
 				accelX = 2;
 			} else {
 				manSpeed = walkSpeed;
-				accelX = 1;
+				accelX = 2;
 			}
 		}
 
 		public function ToggleReady(e: Event): void {
 			if (main.controls.rkeydown) {
 				ready = true;
-				man.gotoAndStop(7);
-				maxSpeed = 12;
-				walkSpeed = 12;
+				if(speedX != 0){
+					man.gotoAndStop(8);
+					man.rArm.x = 70;
+					man.rArm.y = -102;
+					man.lArm.x = 66;
+					man.lArm.y = -100;
+				} else {
+					man.gotoAndStop(7);
+					man.rArm.x = 16;
+					man.rArm.y = -116;
+					man.lArm.x = 16;
+					man.lArm.y = -118;
+				}
+				maxSpeed = 16;
+				walkSpeed = 16;
 				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
 			} else {
 				ready = false;
