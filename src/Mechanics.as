@@ -30,6 +30,8 @@
 		var bulletSpeedx: Array = new Array();
 		var bulletSpeedy: Array = new Array();
 		var ground: Number;
+		var shootArmSwitch: Boolean = false;
+		var shootFunction: Boolean = false;
 
 		public function Mechanics(man: Man, main: Main, bg: Lvl) {
 			this.main = main;
@@ -84,8 +86,8 @@
 		}
 
 		public function Animate(e: Event) {
-			if (ready){
-				if(speedX != 0){
+			if (ready) {
+				if (speedX != 0) {
 					man.gotoAndStop(8);
 				} else {
 					man.gotoAndStop(7);
@@ -131,7 +133,7 @@
 		public function ToggleReady(e: Event): void {
 			if (main.controls.rkeydown) {
 				ready = true;
-				if(speedX != 0){
+				if (speedX != 0) {
 					man.gotoAndStop(8);
 					man.rArm.x = 70;
 					man.rArm.y = -102;
@@ -141,7 +143,7 @@
 					man.gotoAndStop(7);
 					man.rArm.x = 16;
 					man.rArm.y = -116;
-					man.lArm.x = 16;
+					man.lArm.x = 14;
 					man.lArm.y = -118;
 				}
 				maxSpeed = 16;
@@ -168,7 +170,6 @@
 				} else {
 					man.rArm.rotation = (Math.atan2(dy, -dx) * 180 / Math.PI);
 					man.lArm.rotation = man.rArm.rotation;
-
 					if (orient == 2) {
 						man.x += 40;
 						orient = 1;
@@ -178,28 +179,71 @@
 			}
 		}
 		public function Shoot(e: MouseEvent): void {
-			man.rArm.gotoAndPlay(1);
-			man.lArm.gotoAndPlay(1);
+			if (!shootFunction) {
+				main.stage.addEventListener(Event.ENTER_FRAME, BulletMove);
+				shootFunction = true;
+			}
+			if (shootArmSwitch) {
+				man.rArm.gotoAndPlay(2);
+				shootArmSwitch = false;
+			} else {
+				man.lArm.gotoAndPlay(2);
+				shootArmSwitch = true;
+			}
 			var newMC: Bullet = new Bullet();
-			this.main.addChild(newMC);
+			main.addChild(newMC);
 			i++;
 			mcArray[i] = newMC;
 			mcArray[i].rotation = Math.atan2(dy, dx) * 180 / Math.PI;
-			mcArray[i].x = man.x + 20;
-			mcArray[i].y = man.y - 120;
+			if (speedX != 0) {
+				if (shootArmSwitch) {
+					if (orient == 2)
+						mcArray[i].x = man.x + 20;
+					else
+						mcArray[i].x = man.x - 20;
+					mcArray[i].y = man.y - 100;
+				} else {
+					if (orient == 2)
+						mcArray[i].x = man.x + 20;
+					else
+						mcArray[i].x = man.x - 20;
+					mcArray[i].y = man.y - 110;
+				}
+			} else {
+				if (shootArmSwitch) {
+					if (orient == 2)
+						mcArray[i].x = man.x + 20;
+					else
+						mcArray[i].x = man.x - 20;
+					mcArray[i].y = man.y - 140;
+				} else {
+					if (orient == 2)
+						mcArray[i].x = man.x + 20;
+					else
+						mcArray[i].x = man.x - 20;
+					mcArray[i].y = man.y - 130;
+				}
+			}
 			bulletSpeedx[i] = dx;
 			bulletSpeedy[i] = dy;
 			var normal: Number;
 			normal = Math.sqrt(Math.pow(bulletSpeedx[i], 2) + Math.pow(bulletSpeedy[i], 2));
 			bulletSpeedx[i] /= normal;
 			bulletSpeedy[i] /= normal;
-			main.stage.addEventListener(Event.ENTER_FRAME, BulletMove);
 		}
 
 		public function BulletMove(e: Event): void {
-			for (var i = 0; i < mcArray.length; i++) {
-				mcArray[i].x += 100 * (bulletSpeedx[i]);
-				mcArray[i].y += 100 * (bulletSpeedy[i]);
+			for (var j = 0; j < mcArray.length; j++) {
+				mcArray[j].x += 80 * (bulletSpeedx[j]);
+				mcArray[j].y += 80 * (bulletSpeedy[j]);
+				if (mcArray[j].x > 1280 || mcArray[j].x < 0 || mcArray[j].y < 0 || mcArray[j].y > 720) {
+					main.removeChild(mcArray[j]);
+					bulletSpeedx[j] = bulletSpeedx[mcArray.length - 1];
+					bulletSpeedy[j] = bulletSpeedy[mcArray.length - 1];
+					mcArray[j] = mcArray[mcArray.length - 1]
+					mcArray.pop();
+					i--;
+				}
 			}
 		}
 	}

@@ -8,7 +8,7 @@
 	import fl.motion.Color;
 	import flash.events.KeyboardEvent;
 
-	public class Alley extends MovieClip {
+	public class Bar extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
 		var man: Man;
@@ -16,37 +16,63 @@
 		var fadeout: Boolean = false;
 		var fadein: Boolean = false;
 		var color: Color = new Color();
+		var enemy: Enemy;
+		var enemyHealth: Number = 100;
 
-		public function Alley(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
+		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
 			this.main = main;
 			man = new Man();
-			bg = new AlleyLvl();
+			bg = new Lvl2();
 			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
 			this.addChild(man);
-			man.y = 500;
+			man.y = 680;
 			bg.y = 720;
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-			//man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 
-			this.mechanics.ground = 500;
+			this.mechanics.ground = 680;
 			this.mechanics.border1 = 0;
-			this.mechanics.border2 = 1280;
-			this.mechanics.lim1 = 500;
-			this.mechanics.lim2 = 900;
-			this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
+			this.mechanics.border2 = -1324;
+			this.mechanics.lim1 = 80;
+			this.mechanics.lim2 = 1150;
+			//this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
 
 			color.brightness = 0;
+			enemy = new Enemy();
+			bg.addChild(enemy);
+			enemy.x = 1400;
+			enemy.y = -80;
+
+			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
+			enemy.gotoAndStop(1);
+
+
 
 		}
 
-		function move2Lvl1(e: Event) {
+		function bulletCollision(e: Event) {
+			for (var j = 0; j < this.mechanics.mcArray.length; j++) {
+				if (enemyHealth == 0) {
+					enemy.gotoAndStop(4);
+				} else if (Math.abs(man.x - enemy.x) < 200){
+					enemy.gotoAndStop(3);
+				} else if (mechanics.mcArray[j].hitTestObject(enemy)) {
+					enemy.gotoAndStop(2);
+					enemyHealth -= 5;
+				} else {
+					enemy.gotoAndStop(1);
+				}
+			}
+		}
+
+		/*function move2Lvl1(e: Event) {
 			if (main.controls.downkeydown) {
 				fadeout = true;
 			}
@@ -76,7 +102,7 @@
 						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-						//man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 						this.removeChild(man);
 						main.removeChild(main.alley);
 						main.removeChild(main.sights.sights);
@@ -86,7 +112,7 @@
 						main.addChild(main.level1);
 						main.addChild(main.sights.sights);
 						main.level1.bg.x = -1332;
-						main.level1.man.x = 1050;
+						main.level1.man.x = 1100;
 						fadein = true;
 						main.level1.bg.alpha = 0;
 						main.level1.man.brightness = -1;

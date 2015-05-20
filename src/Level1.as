@@ -6,13 +6,13 @@
 	import flash.geom.Transform;
 	import flash.geom.ColorTransform;
 	import fl.motion.Color;
+	import flash.events.KeyboardEvent;
 
 	public class Level1 extends MovieClip {
 		var main: Main;
 		var mechanics: Mechanics;
 		var bg: Lvl;
 		var man: Man;
-		var pass: Boolean = false;
 		var fadeout: Boolean = false;
 		var fadein: Boolean = false;
 		var color: Color = new Color();
@@ -37,16 +37,16 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
-
+			
 			this.mechanics.ground = 650;
 			this.mechanics.border1 = 0;
 			this.mechanics.border2 = -1324;
 			this.mechanics.lim1 = 80;
-			this.mechanics.lim2 = 1100;
-
+			this.mechanics.lim2 = 1150;
 
 			pauseMenu.pauseTimer.addEventListener(TimerEvent.TIMER, pauseMenu.pauseGame);
 			this.addEventListener(Event.ENTER_FRAME, move2Alley);
+			this.addEventListener(Event.ENTER_FRAME, move2Bar);
 
 			color.brightness = 0;
 
@@ -56,18 +56,27 @@
 			if (man.x > 900 && man.x < 1200) {
 				if (main.controls.upkeydown) {
 					fadeout = true;
+					this.removeEventListener(Event.ENTER_FRAME, move2Bar);
 				}
 				if (fadeout) {
 					main.controls.rkeydown = false;
 					if (bg.alpha > 0) {
+						if (bg.alpha == 1) {
+							main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+							main.controls.leftkeydown = false;
+							main.controls.upkeydown = false;
+							main.controls.rightkeydown = false;
+							main.controls.downkeydown = false;
+							main.controls.capslockdown = false;
+							main.controls.pkeydown = false;
+							main.controls.enterkeydown = false;
+							main.controls.spacekeydown = false;
+							main.controls.rkeydown = false;
+							main.controls.ekeydown = false;
+						}
 						color.brightness -= 0.033;
 						man.transform.colorTransform = color;
 						bg.alpha -= 0.033;
-						this.mechanics.speedX = 0;
-						this.mechanics.speedY = 0;
-						man.scaleX = 1;
-						man.gotoAndStop(6);
-						man.y -= 6;
 					} else {
 						if (!fadein) {
 							removeChild(bg);
@@ -89,16 +98,12 @@
 							fadein = true;
 						} else {
 							main.alley.bg.alpha += 0.033;
-							if(color.brightness < 0)
+							if (color.brightness < 0)
 								color.brightness += 0.033;
 							main.alley.man.transform.colorTransform = color;
-							this.mechanics.speedX = 0;
-							this.mechanics.speedY = 0;
-							main.level1.man.scaleX = 1;
-							main.level1.man.y -= 1;
-							main.level1.man.gotoAndStop(5);
 							if (main.alley.bg.alpha == 1) {
 								this.removeEventListener(Event.ENTER_FRAME, move2Alley);
+								main.stage.addEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
 							}
 						}
 					}
@@ -106,6 +111,62 @@
 			}
 		}
 
+		function move2Bar(e: Event) {
+			if (/*main.pass && */man.x > 1140) {
+				fadeout = true;
+				this.removeEventListener(Event.ENTER_FRAME, move2Alley);
+			}
+			if (fadeout) {
+				main.controls.rkeydown = false;
+				if (bg.alpha > 0) {
+					if (bg.alpha == 1) {
+						main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+						main.controls.leftkeydown = false;
+						main.controls.upkeydown = false;
+						main.controls.rightkeydown = false;
+						main.controls.downkeydown = false;
+						main.controls.capslockdown = false;
+						main.controls.pkeydown = false;
+						main.controls.enterkeydown = false;
+						main.controls.spacekeydown = false;
+						main.controls.rkeydown = false;
+						main.controls.ekeydown = false;
+					}
+					color.brightness -= 0.033;
+					man.transform.colorTransform = color;
+					bg.alpha -= 0.033;
+				} else {
+					if (!fadein) {
+						removeChild(bg);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
+						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+						removeChild(man);
+						main.removeChild(main.level1);
+						main.removeChild(main.sights.sights);
+						main.bar = new Bar(main, mechanics, main.pauseMenu);
+						main.bar.bg.alpha = 0;
+						color.brightness = -1;
+						main.bar.man.transform.colorTransform = color;
+						main.addChild(main.bar);
+						main.addChild(main.sights.sights);
+						main.bar.man.x = 400;
+						fadein = true;
+					} else {
+						main.bar.bg.alpha += 0.033;
+						if (color.brightness < 0)
+							color.brightness += 0.033;
+						main.bar.man.transform.colorTransform = color;
+						if (main.bar.bg.alpha == 1) {
+							this.removeEventListener(Event.ENTER_FRAME, move2Bar);
+							main.stage.addEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+						}
+					}
+				}
+			}
+		}
 	}
 
 

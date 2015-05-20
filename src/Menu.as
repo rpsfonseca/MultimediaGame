@@ -46,8 +46,6 @@
 			this.removeChild(quitBtn);
 			this.removeChild(menuScr);
 			this.addChild(intro);
-			addChild(main.fade);
-			main.fade.alpha = 0;
 			newBtn.removeEventListener(MouseEvent.MOUSE_DOWN, newBtnClick);
 			quitBtn.removeEventListener(MouseEvent.MOUSE_DOWN, quitBtnClick);
 			main.stage.addEventListener(Event.ENTER_FRAME, checkSkip);
@@ -58,7 +56,6 @@
 		}
 
 		function checkSkip(event: Event): void {
-			//main.fade.fadeOutLevel1();
 			if ((this.intro.currentFrame == 830) || (main.controls.enterkeydown)){
 				Skip_Intro();
 			}
@@ -77,12 +74,6 @@
 			menuSound = cityAmbience.play();
 			myTransform.volume = 0.1;
 			menuSound.soundTransform = myTransform;
-		}
-
-		function fadeOut(event: Event) {
-			if ((this.intro.currentFrame >= 50) && (this.intro.currentFrame < 80)) {
-				main.fade.alpha += 0.033;
-			}
 		}
 	}
 }
