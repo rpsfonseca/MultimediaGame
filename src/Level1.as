@@ -7,6 +7,9 @@
 	import flash.geom.ColorTransform;
 	import fl.motion.Color;
 	import flash.events.KeyboardEvent;
+	import flash.display.Loader;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 
 	public class Level1 extends MovieClip {
 		var main: Main;
@@ -16,12 +19,16 @@
 		var fadeout: Boolean = false;
 		var fadein: Boolean = false;
 		var color: Color = new Color();
+		var bouncer: Enemy;
+		var txtLoader: URLLoader = new URLLoader();
+		var formatText: FormatText;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
+			formatText= new FormatText(main);
 
 			this.addChild(bg);
 			this.addChild(man);
@@ -37,7 +44,7 @@
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
-			
+
 			this.mechanics.ground = 650;
 			this.mechanics.border1 = 0;
 			this.mechanics.border2 = -1324;
@@ -50,6 +57,25 @@
 
 			color.brightness = 0;
 
+			this.addEventListener(Event.ENTER_FRAME, Bouncer);
+			bouncer = new Enemy();
+			bg.addChild(bouncer);
+			bouncer.gotoAndStop(1);
+			bouncer.x = 2535;
+			bouncer.y = -80;
+			bouncer.scaleX = -1;
+
+		}
+
+		function Bouncer(e: Event) {
+			if ((Math.sqrt(Math.pow(man.x - (bg.x + bouncer.x), 2))) < 200) {
+				txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
+				if (!main.pass) {
+					txtLoader.load(new URLRequest(".\\Lines\\bouncer1.txt"));
+				} else {
+					txtLoader.load(new URLRequest(".\\Lines\\bouncer2.txt"));
+				}
+			}
 		}
 
 		function move2Alley(e: Event) {
@@ -112,7 +138,7 @@
 		}
 
 		function move2Bar(e: Event) {
-			if (/*main.pass && */man.x > 1140) {
+			if (main.pass && man.x > 1140) {
 				fadeout = true;
 				this.removeEventListener(Event.ENTER_FRAME, move2Alley);
 			}

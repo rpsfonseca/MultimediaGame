@@ -39,7 +39,6 @@
 			this.man = man;
 			this.enemy = enemy;
 			this.bg = bg;
-			//bg.addChild(enemy);
 			bullet = new Bullet();
 			main.stage.addEventListener(Event.ENTER_FRAME, Move);
 		}
