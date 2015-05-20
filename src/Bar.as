@@ -18,6 +18,7 @@
 		var color: Color = new Color();
 		var enemy: Enemy;
 		var enemyHealth: Number = 100;
+		var enemymechs: EnemyMech;
 
 		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
@@ -49,7 +50,9 @@
 			bg.addChild(enemy);
 			enemy.x = 1400;
 			enemy.y = -80;
-
+			
+			enemymechs = new EnemyMech(man, main, bg, enemy);
+			
 			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
 			enemy.gotoAndStop(1);
 
@@ -61,8 +64,6 @@
 			for (var j = 0; j < this.mechanics.mcArray.length; j++) {
 				if (enemyHealth == 0) {
 					enemy.gotoAndStop(4);
-				} else if (Math.abs(man.x - enemy.x) < 200){
-					enemy.gotoAndStop(3);
 				} else if (mechanics.mcArray[j].hitTestObject(enemy)) {
 					enemy.gotoAndStop(2);
 					enemyHealth -= 5;

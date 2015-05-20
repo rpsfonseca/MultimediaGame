@@ -16,7 +16,7 @@
 		var maxSpeed = 18;
 		var walkSpeed = 8;
 		var speedY = 0;
-		var impulsion = 40;
+		var impulsion = 60;
 		var border1: Number;
 		var border2: Number;
 		var lim1: Number;
