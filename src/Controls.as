@@ -1,6 +1,7 @@
 ﻿package {
 	import flash.events.KeyboardEvent;
 	import flash.display.MovieClip;
+	import flash.events.MouseEvent;
 
 	public class Controls extends MovieClip {
 		var main: Main;
@@ -15,11 +16,14 @@
 		public var spacekeydown: Boolean = false;
 		public var rkeydown: Boolean = false;
 		public var ekeydown: Boolean = false;
+		public var mousedown: Boolean = false;
 
 		public function Controls(main: Main) {
 			this.main = main;
 			main.stage.addEventListener(KeyboardEvent.KEY_DOWN, checkKeysDown);
 			main.stage.addEventListener(KeyboardEvent.KEY_UP, checkKeysUp);
+			main.stage.addEventListener(MouseEvent.MOUSE_DOWN, checkMouseDown);
+			main.stage.addEventListener(MouseEvent.MOUSE_UP, checkMouseUp);
 
 		}
 		public function checkKeysDown(event: KeyboardEvent): void {
@@ -59,8 +63,8 @@
 				else
 					rkeydown = true;
 			}
-			if(event.keyCode == 69) {
-				if(ekeydown)
+			if (event.keyCode == 69) {
+				if (ekeydown)
 					ekeydown = false;
 				else
 					ekeydown = true;
@@ -85,7 +89,17 @@
 			}
 			if (event.keyCode == 32) {
 				spacekeydown = false;
-			}
+			}	
+		}
+		
+		public function checkMouseDown(e: MouseEvent) {
+			trace("down");
+			mousedown = true;
+		}
+
+		public function checkMouseUp(e: MouseEvent) {
+			trace("up");
+			mousedown = false;
 		}
 	}
 }

@@ -22,13 +22,14 @@
 		var bouncer: Enemy;
 		var txtLoader: URLLoader = new URLLoader();
 		var formatText: FormatText;
+		var textinscreen: Boolean = false;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
-			formatText= new FormatText(main);
+			formatText = new FormatText(main);
 
 			this.addChild(bg);
 			this.addChild(man);
@@ -69,12 +70,26 @@
 
 		function Bouncer(e: Event) {
 			if ((Math.sqrt(Math.pow(man.x - (bg.x + bouncer.x), 2))) < 200) {
-				txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
+				if (!textinscreen) {
+					txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
+					textinscreen = true;
+				}
 				if (!main.pass) {
 					txtLoader.load(new URLRequest(".\\Lines\\bouncer1.txt"));
 				} else {
 					txtLoader.load(new URLRequest(".\\Lines\\bouncer2.txt"));
 				}
+			} else {
+				if (textinscreen) {
+					txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+					textinscreen = false;
+					main.stage.removeChild(formatText.lines);
+				}
+			}
+			if (fadeout && textinscreen) {
+				txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+				textinscreen = false;
+				main.stage.removeChild(formatText.lines);
 			}
 		}
 
@@ -83,23 +98,22 @@
 				if (main.controls.upkeydown) {
 					fadeout = true;
 					this.removeEventListener(Event.ENTER_FRAME, move2Bar);
+					main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+					this.removeEventListener(Event.ENTER_FRAME, Bouncer);
+					main.controls.leftkeydown = false;
+					main.controls.upkeydown = false;
+					main.controls.rightkeydown = false;
+					main.controls.downkeydown = false;
+					main.controls.capslockdown = false;
+					main.controls.pkeydown = false;
+					main.controls.enterkeydown = false;
+					main.controls.spacekeydown = false;
+					main.controls.rkeydown = false;
+					main.controls.ekeydown = false;
 				}
 				if (fadeout) {
 					main.controls.rkeydown = false;
 					if (bg.alpha > 0) {
-						if (bg.alpha == 1) {
-							main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
-							main.controls.leftkeydown = false;
-							main.controls.upkeydown = false;
-							main.controls.rightkeydown = false;
-							main.controls.downkeydown = false;
-							main.controls.capslockdown = false;
-							main.controls.pkeydown = false;
-							main.controls.enterkeydown = false;
-							main.controls.spacekeydown = false;
-							main.controls.rkeydown = false;
-							main.controls.ekeydown = false;
-						}
 						color.brightness -= 0.033;
 						man.transform.colorTransform = color;
 						bg.alpha -= 0.033;
@@ -147,6 +161,7 @@
 				if (bg.alpha > 0) {
 					if (bg.alpha == 1) {
 						main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+						this.removeEventListener(Event.ENTER_FRAME, Bouncer);
 						main.controls.leftkeydown = false;
 						main.controls.upkeydown = false;
 						main.controls.rightkeydown = false;

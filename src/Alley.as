@@ -7,6 +7,8 @@
 	import flash.geom.ColorTransform;
 	import fl.motion.Color;
 	import flash.events.KeyboardEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 
 	public class Alley extends MovieClip {
 		var main: Main;
@@ -16,12 +18,17 @@
 		var fadeout: Boolean = false;
 		var fadein: Boolean = false;
 		var color: Color = new Color();
+		var txtLoader: URLLoader = new URLLoader();
+		var formatText: FormatText;
+		var textonscreen: Boolean = false;
+		var line: Number = 1;
 
 		public function Alley(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
 			this.main = main;
 			man = new Man();
 			bg = new AlleyLvl();
+			formatText = new FormatText(main);
 			this.mechanics = new Mechanics(man, this.main, bg);
 
 			this.addChild(bg);
@@ -44,6 +51,29 @@
 
 			color.brightness = 0;
 
+			this.addEventListener(Event.ENTER_FRAME, Smile);
+
+		}
+
+		function Smile(e: Event) {
+			if ((Math.sqrt(Math.pow(man.x - (bg.x + bg.smile.x), 2))) < 200) {
+				if (!textonscreen) {
+					txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
+					textonscreen = true;
+					txtLoader.load(new URLRequest(".\\Lines\\smile1.txt"));
+				}
+			} else {
+				if (textonscreen) {
+					txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+					textonscreen = false;
+					main.stage.removeChild(formatText.lines);
+				}
+			}
+			if (fadeout && textonscreen) {
+				txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+				textonscreen = false;
+				main.stage.removeChild(formatText.lines);
+			}
 		}
 
 		function move2Lvl1(e: Event) {
@@ -55,6 +85,7 @@
 				if (bg.alpha > 0) {
 					if (bg.alpha == 1) {
 						main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+						this.removeEventListener(Event.ENTER_FRAME, Smile);
 						main.controls.leftkeydown = false;
 						main.controls.upkeydown = false;
 						main.controls.rightkeydown = false;
@@ -103,26 +134,5 @@
 				}
 			}
 		}
-		/*function interaction(){
-		if( main.x == 100) //inserir raio e / ou posiçao de interaçao
-			if(main.controls.ekeydown && pass == false){
-				pass = true;
-				//start animation for password
-			} else if(main.controls.ekeydown && pass == true){
-				//start filler animation
-			}
-		}*/
 	}
-
-	/*function onFinish(e: Event) {
-		this.main.stage.alpha -= 0.5 // change this value as per the speed of fade required
-
-		if ( this.main.stage.alpha <= 0 ) {
-		    this.main.stage.visible = false
-		    this.main.stage.alpha = 1 ;
-		    removeEventListener(Event.ENTER_FRAME, onFinish); // TODO: CHECK EVENTS ENTER_FRAME
-		}
-	}*/
-
-
 }
