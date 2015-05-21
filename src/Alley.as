@@ -24,7 +24,6 @@
 		var line: Number = 1;
 
 		public function Alley(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
-			main.pass = true;
 			this.main = main;
 			man = new Man();
 			bg = new AlleyLvl();
@@ -60,7 +59,20 @@
 				if (!textonscreen) {
 					txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
 					textonscreen = true;
-					txtLoader.load(new URLRequest(".\\Lines\\smile1.txt"));
+					if (line == 1) {
+						txtLoader.load(new URLRequest(".\\Lines\\smile1.txt"));
+					} else {
+						txtLoader.load(new URLRequest(".\\Lines\\smile2.txt"));
+						main.pass = true;
+					}
+				}
+				if (line == 1) {
+					if (formatText.nextline && main.controls.mousedown) {
+						line = 2;
+						txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+						textonscreen = false;
+						main.stage.removeChild(formatText.lines);
+					}
 				}
 			} else {
 				if (textonscreen) {

@@ -19,6 +19,7 @@
 		var delayTimer: Timer = new Timer(60);
 		var string: String;
 		var skip: Boolean = false;
+		var nextline: Boolean = false;
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -54,16 +55,17 @@
 
 		function writeText(e: TimerEvent): void {
 			if (counter <= string.length) {
+				nextline = false;
 				if (string.charAt(counter) == ' ')
 					counter++;
 				lines.text = "_Bouncer_" + "\n\n" + string.substr(0, counter);
 				counter++;
-				trace(main.controls.mousedown);
 				if(main.controls.mousedown && !skip){
-					counter = string.length - 1;
+					counter = string.length;
 					skip = true;
 				}
 			} else {
+				nextline = true;
 				delayTimer.removeEventListener(TimerEvent.TIMER, writeText);
 			}
 		}

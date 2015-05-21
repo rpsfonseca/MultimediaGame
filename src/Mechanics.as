@@ -9,14 +9,14 @@
 		var man: Man;
 		var orient: Number = 2;
 		var jumping: Boolean = false;
-		var gravity = 4;
+		var gravity = 3;
 		var speedX = 0;
 		var accelX = 1;
 		var manSpeed: Number;
 		var maxSpeed = 18;
 		var walkSpeed = 8;
 		var speedY = 0;
-		var impulsion = 60;
+		var impulsion = 30;
 		var border1: Number;
 		var border2: Number;
 		var lim1: Number;
@@ -70,8 +70,15 @@
 
 			if (main.controls.spacekeydown) {
 				jumping = true;
-				if (man.y == ground)
+				if (man.y == ground) {
 					speedY = -impulsion;
+					if (ready) {
+						if (man.scaleX == 1)
+							speedX += 20;
+						else if (man.scaleX == -1)
+							speedX -= 20;
+					}
+				}
 			}
 
 			if (main.controls.rightkeydown && speedX < manSpeed) {
@@ -87,7 +94,9 @@
 
 		public function Animate(e: Event) {
 			if (ready) {
-				if (speedX != 0) {
+				if (jumping) {
+					man.gotoAndStop(9);
+				} else if (speedX != 0) {
 					man.gotoAndStop(8);
 				} else {
 					man.gotoAndStop(7);
@@ -133,7 +142,9 @@
 		public function ToggleReady(e: Event): void {
 			if (main.controls.rkeydown) {
 				ready = true;
-				if (speedX != 0) {
+				if (jumping) {
+					man.gotoAndStop(9);
+				} else if (speedX != 0) {
 					man.gotoAndStop(8);
 					man.rArm.x = 70;
 					man.rArm.y = -102;

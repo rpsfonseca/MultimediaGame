@@ -93,12 +93,10 @@
 		}
 		
 		public function checkMouseDown(e: MouseEvent) {
-			trace("down");
 			mousedown = true;
 		}
 
 		public function checkMouseUp(e: MouseEvent) {
-			trace("up");
 			mousedown = false;
 		}
 	}
