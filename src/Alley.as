@@ -34,12 +34,16 @@
 			this.addChild(man);
 			man.y = 500;
 			bg.y = 720;
+			
+			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			//man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+
+			
 
 			this.mechanics.ground = 500;
 			this.mechanics.border1 = 0;
@@ -86,7 +90,7 @@
 				textonscreen = false;
 				main.stage.removeChild(formatText.lines);
 			}
-		}
+		} 
 
 		function move2Lvl1(e: Event) {
 			if (main.controls.downkeydown) {
