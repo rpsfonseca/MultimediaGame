@@ -22,7 +22,6 @@
 		public function pauseGame(e: TimerEvent) {
 			if (main.controls.pkeydown) {
 				if (!paused) {
-					
 					this.addChild(opBtn);
 					this.addChild(quitBtn);
 					this.addChild(resBtn);

@@ -47,7 +47,8 @@
 			this.mechanics.lim1 = 500;
 			this.mechanics.lim2 = 900;
 			this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
-
+			
+			
 			color.brightness = 0;
 
 			this.addEventListener(Event.ENTER_FRAME, Smile);
