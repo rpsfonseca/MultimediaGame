@@ -73,10 +73,10 @@
 				if (man.y == ground) {
 					speedY = -impulsion;
 					if (ready) {
-						if (man.scaleX == 1)
-							speedX += 20;
-						else if (man.scaleX == -1)
+						if (main.controls.leftkeydown)
 							speedX -= 20;
+						else if (main.controls.rightkeydown)
+							speedX += 20;
 					}
 				}
 			}
@@ -94,13 +94,7 @@
 
 		public function Animate(e: Event) {
 			if (ready) {
-				if (jumping) {
-					man.gotoAndStop(9);
-				} else if (speedX != 0) {
-					man.gotoAndStop(8);
-				} else {
-					man.gotoAndStop(7);
-				}
+				//code in ToggleReady function
 			} else if (jumping)
 				man.gotoAndStop(2);
 			else if (speedX > 0) {
@@ -143,7 +137,19 @@
 			if (main.controls.rkeydown) {
 				ready = true;
 				if (jumping) {
-					man.gotoAndStop(9);
+					if ((speedX < 0 && orient == 2) || speedX > 0 && orient == 1) {
+						man.gotoAndStop(10);
+						man.rArm.x = 4;
+						man.rArm.y = -94;
+						man.lArm.x = -5;
+						man.lArm.y = -88;
+					} else if ((speedX < 0 && orient == 1) || speedX > 0 && orient == 2) {
+						man.gotoAndStop(9);
+						man.rArm.x = 70;
+						man.rArm.y = -102;
+						man.lArm.x = 66;
+						man.lArm.y = -100;
+					}
 				} else if (speedX != 0) {
 					man.gotoAndStop(8);
 					man.rArm.x = 70;
