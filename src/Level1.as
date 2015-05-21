@@ -75,8 +75,10 @@
 					textinscreen = true;
 				}
 				if (!main.pass) {
+					formatText.namelabel = "_Bouncer_";
 					txtLoader.load(new URLRequest(".\\Lines\\bouncer1.txt"));
 				} else {
+					formatText.namelabel = "_Bouncer_";
 					txtLoader.load(new URLRequest(".\\Lines\\bouncer2.txt"));
 				}
 			} else {
@@ -87,6 +89,7 @@
 				}
 			}
 			if (fadeout && textinscreen) {
+				stage.frameRate = 30;
 				txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
 				textinscreen = false;
 				main.stage.removeChild(formatText.lines);

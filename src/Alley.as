@@ -65,8 +65,10 @@
 					txtLoader.addEventListener(Event.COMPLETE, formatText.onLoaded);
 					textonscreen = true;
 					if (line == 1) {
+						formatText.namelabel = "_Stranger_";
 						txtLoader.load(new URLRequest(".\\Lines\\smile1.txt"));
 					} else {
+						formatText.namelabel = "_Stranger_";
 						txtLoader.load(new URLRequest(".\\Lines\\smile2.txt"));
 						main.pass = true;
 					}

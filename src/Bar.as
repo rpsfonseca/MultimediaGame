@@ -67,6 +67,12 @@
 				if (enemyHealth == 0) {
 					enemy.gotoAndStop(4);
 				} else if (mechanics.mcArray[j].hitTestObject(enemy)) {
+					main.removeChild(mechanics.mcArray[j]);
+					mechanics.bulletSpeedx[j] = mechanics.bulletSpeedx[mechanics.mcArray.length - 1];
+					mechanics.bulletSpeedy[j] = mechanics.bulletSpeedy[mechanics.mcArray.length - 1];
+					mechanics.mcArray[j] = mechanics.mcArray[mechanics.mcArray.length - 1]
+					mechanics.mcArray.pop();
+					mechanics.i--;
 					enemy.gotoAndStop(2);
 					enemyHealth -= 5;
 				} else {

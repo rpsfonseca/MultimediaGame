@@ -20,6 +20,7 @@
 		var string: String;
 		var skip: Boolean = false;
 		var nextline: Boolean = false;
+		var namelabel: String;
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -31,7 +32,7 @@
 
 		function onLoaded(e: Event): void {
 			counter = 0;
-			lines.text = "_Bouncer_";
+			lines.text = namelabel;
 			lines.x = 400;
 			lines.y = 620;
 			lines.width = 800;
@@ -58,7 +59,7 @@
 				nextline = false;
 				if (string.charAt(counter) == ' ')
 					counter++;
-				lines.text = "_Bouncer_" + "\n\n" + string.substr(0, counter);
+				lines.text = namelabel + "\n\n" + string.substr(0, counter);
 				counter++;
 				if(main.controls.mousedown && !skip){
 					counter = string.length;

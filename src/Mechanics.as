@@ -11,10 +11,10 @@
 		var jumping: Boolean = false;
 		var gravity = 3;
 		var speedX = 0;
-		var accelX = 1;
+		var accelX = 2;
 		var manSpeed: Number;
-		var maxSpeed = 18;
-		var walkSpeed = 8;
+		var maxSpeed = 22;
+		var walkSpeed = 12;
 		var speedY = 0;
 		var impulsion = 30;
 		var border1: Number;
@@ -32,6 +32,7 @@
 		var ground: Number;
 		var shootArmSwitch: Boolean = false;
 		var shootFunction: Boolean = false;
+		var slide: Boolean = false;
 
 		public function Mechanics(man: Man, main: Main, bg: Lvl) {
 			this.main = main;
@@ -69,23 +70,32 @@
 			}
 
 			if (main.controls.spacekeydown) {
-				jumping = true;
 				if (man.y == ground) {
-					speedY = -impulsion;
+					if (!slide) {
+						speedY = -impulsion;
+						jumping = true;
+					}
 					if (ready) {
 						if (main.controls.leftkeydown)
 							speedX -= 20;
 						else if (main.controls.rightkeydown)
 							speedX += 20;
+						if (!slide)
+							slide = true;
+						else
+							slide = false;
 					}
 				}
 			}
 
-			if (main.controls.rightkeydown && speedX < manSpeed) {
-				speedX += accelX;
-			} else if (main.controls.leftkeydown && speedX > -manSpeed && man.x > 40) {
-				speedX -= accelX;
-			} else if (speedX < 0) {
+			if (!slide) {
+				if (main.controls.rightkeydown && speedX < manSpeed) {
+					speedX += accelX;
+				} else if (main.controls.leftkeydown && speedX > -manSpeed && man.x > 40) {
+					speedX -= accelX;
+				}
+			}
+			if (speedX < 0) {
 				speedX += 1;
 			} else if (speedX > 0) {
 				speedX -= 1;
@@ -103,7 +113,7 @@
 					orient = 2;
 					man.scaleX = 1;
 				}
-				if (speedX > 10) {
+				if (speedX > 12) {
 					man.gotoAndStop(4);
 				} else {
 					man.gotoAndStop(3);
@@ -114,7 +124,7 @@
 					orient = 1;
 					man.scaleX = -1;
 				}
-				if (speedX < -10) {
+				if (speedX < -12) {
 					man.gotoAndStop(4);
 				} else {
 					man.gotoAndStop(3);
@@ -163,13 +173,13 @@
 					man.lArm.x = 14;
 					man.lArm.y = -118;
 				}
-				maxSpeed = 16;
-				walkSpeed = 16;
+				maxSpeed = 18;
+				walkSpeed = 18;
 				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, Shoot);
 			} else {
 				ready = false;
-				maxSpeed = 18;
-				walkSpeed = 8;
+				maxSpeed = 22;
+				walkSpeed = 12;
 				main.stage.removeEventListener(MouseEvent.MOUSE_DOWN, Shoot);
 			}
 			if (ready) {
