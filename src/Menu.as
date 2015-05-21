@@ -11,6 +11,7 @@
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
 	import flash.desktop.NativeApplication;
+	import flash.filesystem.File;
 
 	public class Menu extends MovieClip {
 		public var main: Main;
@@ -21,7 +22,7 @@
 		var cityAmbience: Sound = new Sound();
 		var request: URLRequest = new URLRequest("C:\\Users\\Pedro\\Documents\\OutOfHand\\MultimediaGame\\sound\\menu.mp3");
 		var myTransform = new SoundTransform();
-		var menuSound:SoundChannel = new SoundChannel();
+		var menuSound: SoundChannel = new SoundChannel();
 
 
 		public function Menu(main: Main) {
@@ -39,7 +40,7 @@
 			cityAmbience.load(request);
 
 		}
-		
+
 		function newBtnClick(e: MouseEvent): void {
 			intro = new Intro();
 			this.removeChild(newBtn);
@@ -56,7 +57,7 @@
 		}
 
 		function checkSkip(event: Event): void {
-			if ((this.intro.currentFrame == 830) || (main.controls.enterkeydown)){
+			if ((this.intro.currentFrame == 830) || (main.controls.enterkeydown)) {
 				Skip_Intro();
 			}
 		}
