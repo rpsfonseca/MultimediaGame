@@ -31,6 +31,8 @@
 			this.addChild(man);
 			man.y = 680;
 			bg.y = 720;
+			
+			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);

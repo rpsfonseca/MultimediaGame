@@ -19,8 +19,10 @@
 		var quitBtn: QuitBtn = new QuitBtn();
 		var intro: Intro;
 		var menuScr: MenuScr = new MenuScr();
+		
 		var cityAmbience: Sound = new Sound();
-		var request: URLRequest = new URLRequest("C:\\Users\\Pedro\\Documents\\OutOfHand\\MultimediaGame\\sound\\menu.mp3");
+		
+		var request: URLRequest = new URLRequest(".\\sound\\menu.mp3");
 		var myTransform = new SoundTransform();
 		var menuSound: SoundChannel = new SoundChannel();
 

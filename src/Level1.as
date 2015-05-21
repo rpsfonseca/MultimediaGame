@@ -185,6 +185,7 @@
 						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 						man.removeEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
 						removeChild(man);
+						//removeChild(pauseMenu);
 						main.removeChild(main.level1);
 						main.removeChild(main.sights.sights);
 						main.bar = new Bar(main, mechanics, main.pauseMenu);
