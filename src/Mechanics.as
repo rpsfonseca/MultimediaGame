@@ -74,16 +74,13 @@
 					if (!slide) {
 						speedY = -impulsion;
 						jumping = true;
-					}
-					if (ready) {
-						if (main.controls.leftkeydown)
-							speedX -= 20;
-						else if (main.controls.rightkeydown)
-							speedX += 20;
-						if (!slide)
+						if (ready) {
 							slide = true;
-						else
-							slide = false;
+							if (main.controls.leftkeydown)
+								speedX -= 15;
+							else if (main.controls.rightkeydown)
+								speedX += 15;
+						}
 					}
 				}
 			}
@@ -146,32 +143,50 @@
 		public function ToggleReady(e: Event): void {
 			if (main.controls.rkeydown) {
 				ready = true;
-				if (jumping) {
-					if ((speedX < 0 && orient == 2) || speedX > 0 && orient == 1) {
+				if (slide) {
+					if ((speedX < 0 && orient == 2) || (speedX > 0 && orient == 1)) {
 						man.gotoAndStop(10);
 						man.rArm.x = 4;
-						man.rArm.y = -94;
+						man.rArm.y = -22;
 						man.lArm.x = -5;
-						man.lArm.y = -88;
-					} else if ((speedX < 0 && orient == 1) || speedX > 0 && orient == 2) {
+						man.lArm.y = -16;
+					} else if ((speedX < 0 && orient == 1) || (speedX > 0 && orient == 2)) {
 						man.gotoAndStop(9);
 						man.rArm.x = 70;
-						man.rArm.y = -102;
+						man.rArm.y = -50;
 						man.lArm.x = 66;
-						man.lArm.y = -100;
+						man.lArm.y = -48;
+					}
+					if (!jumping && main.controls.spacekeydown && speedX > -4 && speedX < 4) {
+						slide = false;
+						main.controls.spacekeydown = false;
+					}
+				} else if (jumping) {
+					if ((speedX < 0 && orient == 2) || (speedX > 0 && orient == 1)) {
+						man.gotoAndStop(10);
+						man.rArm.x = 4;
+						man.rArm.y = -22;
+						man.lArm.x = -5;
+						man.lArm.y = -16;
+					} else if ((speedX < 0 && orient == 1) || (speedX > 0 && orient == 2)) {
+						man.gotoAndStop(9);
+						man.rArm.x = 70;
+						man.rArm.y = -50;
+						man.lArm.x = 66;
+						man.lArm.y = -48;
 					}
 				} else if (speedX != 0) {
 					man.gotoAndStop(8);
-					man.rArm.x = 70;
-					man.rArm.y = -102;
-					man.lArm.x = 66;
-					man.lArm.y = -100;
+					man.rArm.x = 66;
+					man.rArm.y = -112;
+					man.lArm.x = 84;
+					man.lArm.y = -116;
 				} else {
 					man.gotoAndStop(7);
-					man.rArm.x = 16;
-					man.rArm.y = -116;
-					man.lArm.x = 14;
-					man.lArm.y = -118;
+					man.rArm.x = 8;
+					man.rArm.y = -122;
+					man.lArm.x = 24;
+					man.lArm.y = -128;
 				}
 				maxSpeed = 18;
 				walkSpeed = 18;
@@ -183,8 +198,8 @@
 				main.stage.removeEventListener(MouseEvent.MOUSE_DOWN, Shoot);
 			}
 			if (ready) {
-				dx = main.stage.mouseX - man.x + 15;
-				dy = main.stage.mouseY - man.y + 115;
+				dx = main.stage.mouseX - (man.rArm.x + 15 + man.x);
+				dy = main.stage.mouseY - (man.rArm.y + man.y);
 				if ((Math.atan2(dy, dx) * 180 / Math.PI) > -90 && (Math.atan2(dy, dx) * 180 / Math.PI) < 90) {
 					man.rArm.rotation = (Math.atan2(dy, dx) * 180 / Math.PI);
 					man.lArm.rotation = man.rArm.rotation;

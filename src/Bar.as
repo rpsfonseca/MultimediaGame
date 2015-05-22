@@ -42,7 +42,7 @@
 
 			this.mechanics.ground = 680;
 			this.mechanics.border1 = 0;
-			this.mechanics.border2 = -1324;
+			this.mechanics.border2 = -2500;
 			this.mechanics.lim1 = 80;
 			this.mechanics.lim2 = 1150;
 			//this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
