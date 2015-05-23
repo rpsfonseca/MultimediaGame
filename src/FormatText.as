@@ -21,6 +21,10 @@
 		var skip: Boolean = false;
 		var nextline: Boolean = false;
 		var namelabel: String;
+		var title: TextField = new TextField();
+		var titleFormat: TextFormat = new TextFormat();
+		var titleOn: Boolean = false;
+		var titleCounter: Number = 0;
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -28,6 +32,11 @@
 			lineFormat.align = TextFormatAlign.LEFT;
 			lineFormat.font = pixelFont.fontName;
 			lineFormat.color = 0xFFFFFF;
+
+			titleFormat.size = 60;
+			titleFormat.align = TextFormatAlign.LEFT;
+			titleFormat.font = pixelFont.fontName;
+			titleFormat.color = 0xFFFFFF;
 		}
 
 		function onLoaded(e: Event): void {
@@ -61,13 +70,47 @@
 					counter++;
 				lines.text = namelabel + "\n\n" + string.substr(0, counter);
 				counter++;
-				if(main.controls.mousedown && !skip){
+				if (main.controls.mousedown && !skip) {
 					counter = string.length;
 					skip = true;
 				}
 			} else {
 				nextline = true;
 				delayTimer.removeEventListener(TimerEvent.TIMER, writeText);
+			}
+		}
+
+		function titleDisplay(e: Event) {
+			if (titleCounter < 300) {
+				titleCounter++;
+				trace(titleCounter);
+			} else if (!titleOn) {
+				title.text = "Out of Hand";
+				title.x = 800;
+				title.y = 200;
+				title.width = 800;
+				title.height = 100;
+				title.defaultTextFormat = titleFormat;
+				title.embedFonts = true;
+				title.antiAliasType = AntiAliasType.ADVANCED;
+				title.selectable = false;
+				title.wordWrap = true;
+				title.filters = [outline];
+				main.stage.addChild(title);
+				title.alpha = 0;
+				titleOn = true;
+				trace("ola");
+				titleCounter = 0;
+			} else if (title.alpha < 1) {
+				title.alpha += 0.01;
+			} else if (titleCounter < 120) {
+				titleCounter++;
+			} else if (title.alpha > 0) {
+				title.alpha -= 0.01;
+			} else {
+				main.stage.removeChild(title);
+				//main.stage.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+
 			}
 		}
 	}

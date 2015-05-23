@@ -39,6 +39,7 @@
 			bg.y = 720;
 
 			this.addChild(pauseMenu);
+			
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
@@ -65,6 +66,8 @@
 			bouncer.x = 2535;
 			bouncer.y = -80;
 			bouncer.scaleX = -1;
+			
+			this.addEventListener(Event.ENTER_FRAME, formatText.titleDisplay);
 
 		}
 

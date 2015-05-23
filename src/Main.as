@@ -21,7 +21,6 @@
 			menu = new Menu(this);
 			sights = new Sights(this);
 			pauseMenu = new PauseMenu(this);
-			level1 = new Level1(this, mechanics, pauseMenu);
 			addChild(menu);
 			addChild(sights.sights);
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;

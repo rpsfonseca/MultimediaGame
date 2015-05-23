@@ -75,11 +75,13 @@
 						speedY = -impulsion;
 						jumping = true;
 						if (ready) {
-							slide = true;
-							if (main.controls.leftkeydown)
-								speedX -= 15;
-							else if (main.controls.rightkeydown)
-								speedX += 15;
+							if (speedX != 0) {
+								slide = true;
+								if (main.controls.leftkeydown)
+									speedX -= 15;
+								else if (main.controls.rightkeydown)
+									speedX += 15;
+							}
 						}
 					}
 				}
@@ -148,13 +150,13 @@
 						man.gotoAndStop(10);
 						man.rArm.x = 4;
 						man.rArm.y = -22;
-						man.lArm.x = -5;
+						man.lArm.x = 10;
 						man.lArm.y = -16;
 					} else if ((speedX < 0 && orient == 1) || (speedX > 0 && orient == 2)) {
 						man.gotoAndStop(9);
 						man.rArm.x = 70;
 						man.rArm.y = -50;
-						man.lArm.x = 66;
+						man.lArm.x = 86;
 						man.lArm.y = -48;
 					}
 					if (!jumping && main.controls.spacekeydown && speedX > -4 && speedX < 4) {
@@ -254,16 +256,16 @@
 			} else {
 				if (shootArmSwitch) {
 					if (orient == 2)
-						mcArray[i].x = man.x + 20;
+						mcArray[i].x = man.rArm.x + 20 + man.x;
 					else
-						mcArray[i].x = man.x - 20;
-					mcArray[i].y = man.y - 140;
+						mcArray[i].x = man.rArm.x - 20 + man.x;
+					mcArray[i].y = man.rArm.y + man.y;
 				} else {
 					if (orient == 2)
-						mcArray[i].x = man.x + 20;
+						mcArray[i].x = man.lArm.x + 20 + man.x;
 					else
-						mcArray[i].x = man.x - 20;
-					mcArray[i].y = man.y - 130;
+						mcArray[i].x = man.lArm.x - 20 + man.x;
+					mcArray[i].y = man.lArm.y + man.y;
 				}
 			}
 			bulletSpeedx[i] = dx;
@@ -282,7 +284,7 @@
 					main.removeChild(mcArray[j]);
 					bulletSpeedx[j] = bulletSpeedx[mcArray.length - 1];
 					bulletSpeedy[j] = bulletSpeedy[mcArray.length - 1];
-					mcArray[j] = mcArray[mcArray.length - 1]
+					mcArray[j] = mcArray[mcArray.length - 1];
 					mcArray.pop();
 					i--;
 				}
