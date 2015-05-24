@@ -64,8 +64,9 @@
 
 		function bulletCollision(e: Event) {
 			for (var j = 0; j < this.mechanics.mcArray.length; j++) {
-				if (enemyHealth == 0) {
+				if (enemyHealth <= 0) {
 					enemy.gotoAndStop(4);
+					enemymechs.dead = true;
 				} else if (mechanics.mcArray[j].hitTestObject(enemy)) {
 					main.removeChild(mechanics.mcArray[j]);
 					mechanics.bulletSpeedx[j] = mechanics.bulletSpeedx[mechanics.mcArray.length - 1];

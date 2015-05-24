@@ -33,6 +33,7 @@
 		var ground: Number;
 		var shootArmSwitch: Boolean = false;
 		var shootFunction: Boolean = false;
+		var dead: Boolean = false;
 
 		public function EnemyMech(man: Man, main: Main, bg: Lvl, enemy: Enemy) {
 			this.main = main;
@@ -45,23 +46,25 @@
 
 		public function Move(e: Event) {
 			// Make enemy follow man, if he is near
-			if (Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 600) {
+			if(dead == false) {
+				if (Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 600) {
 
-				// Change animation direction accordingly to move 
-				if (man.x - (bg.x + enemy.x) < 0) {
-					if (enemy.currentFrame != 4) {
-						enemy.scaleX = -1;
-						enemy.x -= 8;
-						enemy.gotoAndStop(3);
+					// Change animation direction accordingly to move 
+					if (man.x - (bg.x + enemy.x) < 0) {
+						if (enemy.currentFrame != 4) {
+							enemy.scaleX = -1;
+							enemy.x -= 8;
+							enemy.gotoAndStop(3);
+						}
+					} else if (man.x - (bg.x + enemy.x) > 0) {
+						if (enemy.currentFrame != 4) {
+							enemy.scaleX = 1;
+							enemy.x += 8;
+							enemy.gotoAndStop(3);
+						}
+					} else {
+						enemy.gotoAndStop(1);
 					}
-				} else if (man.x - (bg.x + enemy.x) > 0) {
-					if (enemy.currentFrame != 4) {
-						enemy.scaleX = 1;
-						enemy.x += 8;
-						enemy.gotoAndStop(3);
-					}
-				} else {
-					enemy.gotoAndStop(1);
 				}
 			}
 		}
