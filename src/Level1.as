@@ -23,13 +23,16 @@
 		var txtLoader: URLLoader = new URLLoader();
 		var formatText: FormatText;
 		var textinscreen: Boolean = false;
+		var firstTime: Boolean;
 
-		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
+		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu,firstTimeCheck: Boolean) {
+			this.firstTime = firstTimeCheck;
 			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
 			formatText = new FormatText(main);
+			
 
 			this.addChild(bg);
 			this.addChild(man);
@@ -64,7 +67,9 @@
 			bouncer.y = -80;
 			bouncer.scaleX = -1;
 			
+			
 			this.addEventListener(Event.ENTER_FRAME, formatText.titleDisplay);
+			
 
 		}
 

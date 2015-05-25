@@ -19,6 +19,7 @@
 		var enemy: Enemy;
 		var enemyHealth: Number = 100;
 		var enemymechs: EnemyMech;
+		var health: Number = 100;
 
 		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
@@ -56,6 +57,7 @@
 			enemymechs = new EnemyMech(man, main, bg, enemy);
 			
 			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
+			this.addEventListener(Event.ENTER_FRAME, enemyCollision);
 			enemy.gotoAndStop(1);
 
 
@@ -81,6 +83,22 @@
 				}
 			}
 		}
+		
+		function enemyCollision(e: Event) {
+			if(enemymechs.dead == false) {
+				if(Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 5) {
+					health -= 5;
+				}
+			if(health <= 0){
+				trace("mataram me");
+				// por animaçao de estar morto / por fps a 0 mas ter cuidado com as frames
+			}
+			}
+		}
+		
+		
+		
+		
 
 		/*function move2Lvl1(e: Event) {
 			if (main.controls.downkeydown) {
