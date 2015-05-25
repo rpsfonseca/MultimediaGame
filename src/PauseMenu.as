@@ -52,7 +52,8 @@
 		}
 
 		function opBtnClick(e: MouseEvent): void {
-
+			this.addChild(resBtn);
+			resBtn.addEventListener(MouseEvent.MOUSE_DOWN, resBtnClick);
 		}
 
 		function quitBtnClick(e: MouseEvent): void {

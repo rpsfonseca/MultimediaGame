@@ -146,6 +146,7 @@
 			if (main.controls.rkeydown) {
 				ready = true;
 				if (slide) {
+					
 					if ((speedX < 0 && orient == 2) || (speedX > 0 && orient == 1)) {
 						man.gotoAndStop(10);
 						man.rArm.x = 4;

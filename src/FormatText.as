@@ -7,6 +7,8 @@
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import flash.utils.Timer;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 
 	public class FormatText {
 		var main: Main;
@@ -25,6 +27,7 @@
 		var titleFormat: TextFormat = new TextFormat();
 		var titleOn: Boolean = false;
 		var titleCounter: Number = 0;
+		
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -81,17 +84,21 @@
 		}
 
 		function titleDisplay(e: Event) {
-			if (titleCounter < 300) {
-				titleCounter++;
-				trace(titleCounter);
-			} else if (!titleOn) {
+			
+			
+			if (!titleOn && main.level1.firstTime == true) {
+				
 				title.text = "Out of Hand";
 				title.x = 800;
 				title.y = 200;
+			
 				title.width = 800;
 				title.height = 100;
+				
+				
+				
 				title.defaultTextFormat = titleFormat;
-				title.embedFonts = true;
+				//title.embedFonts = true;
 				title.antiAliasType = AntiAliasType.ADVANCED;
 				title.selectable = false;
 				title.wordWrap = true;
@@ -99,17 +106,27 @@
 				main.stage.addChild(title);
 				title.alpha = 0;
 				titleOn = true;
-				trace("ola");
 				titleCounter = 0;
-			} else if (title.alpha < 1) {
-				title.alpha += 0.01;
-			} else if (titleCounter < 120) {
+			} else  if(titleCounter < 20 && main.level1.firstTime == true){
 				titleCounter++;
-			} else if (title.alpha > 0) {
-				title.alpha -= 0.01;
+			} else if (titleCounter < 80 && title.alpha < 1 && main.level1.firstTime == true ) {
+				title.alpha += 0.0150;
+				titleCounter++;
+			} else if (titleCounter < 120 && main.level1.firstTime == true) {
+				titleCounter++;
+			} else if (title.alpha > 0 && main.level1.firstTime == true) {
+				title.alpha -= 0.0150;
 			} else {
+				
+				if(main.level1.firstTime == true){
 				main.stage.removeChild(title);
-				//main.stage.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+				}
+				
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleSprint);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleReady);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.Move);
+				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+				
 
 			}
 		}

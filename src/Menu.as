@@ -83,7 +83,7 @@
 			} else {
 				if (!fadeLevelIn) {
 					this.removeChild(intro);
-					main.level1 = new Level1(main, main.mechanics, main.pauseMenu);
+					main.level1 = new Level1(main, main.mechanics, main.pauseMenu,true);
 					main.addChild(main.level1);
 					main.level1.alpha = 0;
 					main.removeChild(main.sights.sights);

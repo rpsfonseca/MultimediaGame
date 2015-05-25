@@ -130,7 +130,7 @@
 						this.removeChild(man);
 						main.removeChild(main.alley);
 						main.removeChild(main.sights.sights);
-						main.level1 = new Level1(main, mechanics, main.pauseMenu);
+						main.level1 = new Level1(main, mechanics, main.pauseMenu,false);
 						color.brightness = -1;
 						main.level1.man.transform.colorTransform = color;
 						main.addChild(main.level1);
