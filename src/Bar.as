@@ -16,9 +16,11 @@
 		var fadeout: Boolean = false;
 		var fadein: Boolean = false;
 		var color: Color = new Color();
-		var enemy: Enemy;
-		var enemyHealth: Number = 100;
+		var enemyArray: Array = new Array();
+		var enemyHealth: Array = new Array();
 		var enemymechs: EnemyMech;
+		var boss: Boss;
+		var counter: Number = 0;
 
 		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
@@ -31,7 +33,7 @@
 			this.addChild(man);
 			man.y = 680;
 			bg.y = 720;
-			
+
 			this.addChild(pauseMenu);
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
@@ -48,21 +50,35 @@
 			//this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
 
 			color.brightness = 0;
-			enemy = new Enemy();
-			bg.addChild(enemy);
-			enemy.x = 1400;
-			enemy.y = -80;
-			
-			enemymechs = new EnemyMech(man, main, bg, enemy);
-			
-			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
-			enemy.gotoAndStop(1);
+
+			boss = new Boss();
+			boss.x = 3400;
+			boss.y = -80;
+
+			bg.addChild(boss);
+
+			for (counter = 0; counter < 8; counter++) {
+				var newEnemy: Enemy = new Enemy();
+				bg.addChild(newEnemy);
+				enemyArray[counter] = newEnemy;
+				if (enemyArray[counter].x != 3400)
+					enemyArray[counter].x = 2630 + (150 * counter);
+				else
+					enemyArray[counter].x = 3800;
+				enemyArray[counter].y = -80;
+				enemyArray[counter].gotoAndStop(1);
+				enemyArray[counter].scaleX = -1;
+			}
+
+			//enemymechs = new EnemyMech(man, main, bg, enemy);
+
+			//this.addEventListener(Event.ENTER_FRAME, bulletCollision);
 
 
 
 		}
 
-		function bulletCollision(e: Event) {
+		/*function bulletCollision(e: Event) {
 			for (var j = 0; j < this.mechanics.mcArray.length; j++) {
 				if (enemyHealth == 0) {
 					enemy.gotoAndStop(4);
@@ -79,7 +95,7 @@
 					enemy.gotoAndStop(1);
 				}
 			}
-		}
+		}*/
 
 		/*function move2Lvl1(e: Event) {
 			if (main.controls.downkeydown) {

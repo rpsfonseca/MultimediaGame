@@ -239,34 +239,18 @@
 			i++;
 			mcArray[i] = newMC;
 			mcArray[i].rotation = Math.atan2(dy, dx) * 180 / Math.PI;
-			if (speedX != 0) {
-				if (shootArmSwitch) {
-					if (orient == 2)
-						mcArray[i].x = man.x + 20;
-					else
-						mcArray[i].x = man.x - 20;
-					mcArray[i].y = man.y - 100;
-				} else {
-					if (orient == 2)
-						mcArray[i].x = man.x + 20;
-					else
-						mcArray[i].x = man.x - 20;
-					mcArray[i].y = man.y - 110;
-				}
+			if (shootArmSwitch) {
+				if (orient == 2)
+					mcArray[i].x = man.rArm.x + 20 + man.x;
+				else
+					mcArray[i].x = man.rArm.x - 20 + man.x;
+				mcArray[i].y = man.rArm.y + man.y;
 			} else {
-				if (shootArmSwitch) {
-					if (orient == 2)
-						mcArray[i].x = man.rArm.x + 20 + man.x;
-					else
-						mcArray[i].x = man.rArm.x - 20 + man.x;
-					mcArray[i].y = man.rArm.y + man.y;
-				} else {
-					if (orient == 2)
-						mcArray[i].x = man.lArm.x + 20 + man.x;
-					else
-						mcArray[i].x = man.lArm.x - 20 + man.x;
-					mcArray[i].y = man.lArm.y + man.y;
-				}
+				if (orient == 2)
+					mcArray[i].x = man.lArm.x + 20 + man.x;
+				else
+					mcArray[i].x = man.lArm.x - 20 + man.x;
+				mcArray[i].y = man.lArm.y + man.y;
 			}
 			bulletSpeedx[i] = dx;
 			bulletSpeedy[i] = dy;
