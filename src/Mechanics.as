@@ -26,7 +26,7 @@
 		var ready: Boolean;
 		var bullet: Bullet;
 		var mcArray: Array = new Array();
-		var i: Number = -1;
+		var i: Number = 0;
 		var bulletSpeedx: Array = new Array();
 		var bulletSpeedy: Array = new Array();
 		var ground: Number;
@@ -237,7 +237,6 @@
 			}
 			var newMC: Bullet = new Bullet();
 			main.addChild(newMC);
-			i++;
 			mcArray[i] = newMC;
 			mcArray[i].rotation = Math.atan2(dy, dx) * 180 / Math.PI;
 			if (shootArmSwitch) {
@@ -259,6 +258,7 @@
 			normal = Math.sqrt(Math.pow(bulletSpeedx[i], 2) + Math.pow(bulletSpeedy[i], 2));
 			bulletSpeedx[i] /= normal;
 			bulletSpeedy[i] /= normal;
+			i++;
 		}
 
 		public function BulletMove(e: Event): void {

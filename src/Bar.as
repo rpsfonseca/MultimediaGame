@@ -18,13 +18,10 @@
 		var color: Color = new Color();
 		var enemyArray: Array = new Array();
 		var enemyHealth: Array = new Array();
-		var enemymechs: EnemyMech;
-<<<<<<< HEAD
+		var enemymechs: Array = new Array();
 		var boss: Boss;
 		var counter: Number = 0;
-=======
 		var health: Number = 100;
->>>>>>> origin/master
 
 		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
@@ -54,7 +51,6 @@
 			//this.addEventListener(Event.ENTER_FRAME, move2Lvl1);
 
 			color.brightness = 0;
-<<<<<<< HEAD
 
 			boss = new Boss();
 			boss.x = 3400;
@@ -73,67 +69,61 @@
 				enemyArray[counter].y = -80;
 				enemyArray[counter].gotoAndStop(1);
 				enemyArray[counter].scaleX = -1;
+				enemyHealth[counter] = 50;
+				enemymechs[counter] = new EnemyMech(man, main, bg, enemyArray[counter]);
 			}
 
-			//enemymechs = new EnemyMech(man, main, bg, enemy);
 
 			//this.addEventListener(Event.ENTER_FRAME, bulletCollision);
-=======
-			enemy = new Enemy();
+			/*enemy = new Enemy();
 			bg.addChild(enemy);
 			enemy.x = 1400;
-			enemy.y = -80;
-			
-			enemymechs = new EnemyMech(man, main, bg, enemy);
-			
+			enemy.y = -80;*/
+
 			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
-			this.addEventListener(Event.ENTER_FRAME, enemyCollision);
-			enemy.gotoAndStop(1);
->>>>>>> origin/master
-
-
+			//this.addEventListener(Event.ENTER_FRAME, enemyCollision);
+			//enemy.gotoAndStop(1);
 
 		}
 
-		/*function bulletCollision(e: Event) {
-			for (var j = 0; j < this.mechanics.mcArray.length; j++) {
-				if (enemyHealth <= 0) {
-					enemy.gotoAndStop(4);
-					enemymechs.dead = true;
-				} else if (mechanics.mcArray[j].hitTestObject(enemy)) {
-					main.removeChild(mechanics.mcArray[j]);
-					mechanics.bulletSpeedx[j] = mechanics.bulletSpeedx[mechanics.mcArray.length - 1];
-					mechanics.bulletSpeedy[j] = mechanics.bulletSpeedy[mechanics.mcArray.length - 1];
-					mechanics.mcArray[j] = mechanics.mcArray[mechanics.mcArray.length - 1]
-					mechanics.mcArray.pop();
-					mechanics.i--;
-					enemy.gotoAndStop(2);
-					enemyHealth -= 5;
-				} else {
-					enemy.gotoAndStop(1);
+		function bulletCollision(e: Event) {
+			if (mechanics.i-- > 0) {
+				for (var j = 0; j < this.mechanics.mcArray.length; j++) {
+					for (var k = 0; k < enemyArray.length; k++) {
+						trace("mcArray" + mechanics.mcArray[j]);
+						trace("enemy" + enemyArray[k]);
+						if (enemyHealth[k] <= 0) {
+							enemyArray[k].gotoAndStop(4);
+							enemymechs[k].dead = true;
+						} else if (mechanics.mcArray[j].hitTestObject(enemyArray[k])) {
+							main.removeChild(mechanics.mcArray[j]);
+							mechanics.bulletSpeedx[j] = mechanics.bulletSpeedx[mechanics.mcArray.length - 1];
+							mechanics.bulletSpeedy[j] = mechanics.bulletSpeedy[mechanics.mcArray.length - 1];
+							mechanics.mcArray[j] = mechanics.mcArray[mechanics.mcArray.length - 1];
+							mechanics.mcArray.pop();
+							mechanics.i--;
+							enemyArray[k].gotoAndStop(2);
+							enemyHealth[k] -= 5;
+						} else {
+							enemyArray[k].gotoAndStop(1);
+						}
+					}
 				}
 			}
-<<<<<<< HEAD
-		}*/
-=======
 		}
-		
+		/*
 		function enemyCollision(e: Event) {
-			if(enemymechs.dead == false) {
-				if(Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 5) {
+			if (enemymechs.dead == false) {
+				if (Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 5) {
 					health -= 5;
 				}
-			if(health <= 0){
-				trace("mataram me");
-				// por animaçao de estar morto / por fps a 0 mas ter cuidado com as frames
+				if (health <= 0) {
+					trace("mataram me");
+					// por animaçao de estar morto / por fps a 0 mas ter cuidado com as frames
+				}
 			}
-			}
-		}
-		
-		
-		
-		
->>>>>>> origin/master
+		}*/
+
 
 		/*function move2Lvl1(e: Event) {
 			if (main.controls.downkeydown) {
