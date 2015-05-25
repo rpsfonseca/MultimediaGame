@@ -104,8 +104,11 @@
 				titleCounter++;
 				main.stage.addChild(title);
 				trace(main.stage.numChildren);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleSprint);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleReady);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.Move);
 			}				
-			/**} else  if(titleCounter < 20 && main.level1.firstTime == true){
+		/**	} else  if(titleCounter < 20 && main.level1.firstTime == true){
 				titleCounter++;
 			} else if (titleCounter < 80 && title.alpha < 1 && main.level1.firstTime == true ) {
 				title.alpha += 0.0150;

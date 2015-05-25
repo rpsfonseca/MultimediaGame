@@ -76,9 +76,9 @@
 				if (line == 1) {
 					if (formatText.nextline && main.controls.mousedown) {
 						line = 2;
-						txtLoader.removeEventListener(Event.COMPLETE, formatText.onLoaded);
+						formatText.skip = false;
 						textonscreen = false;
-						main.stage.removeChild(formatText.lines);
+					//	main.stage.removeChild(formatText.lines);
 					}
 				}
 			} else {
