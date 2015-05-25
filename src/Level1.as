@@ -40,12 +40,16 @@
 
 			this.addChild(pauseMenu);
 			
+			this.addEventListener(Event.ENTER_FRAME, formatText.titleDisplay);
+			
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
+			if(formatText.title.alpha <= 0.0) {
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
+			}
 
 			this.mechanics.ground = 650;
 			this.mechanics.border1 = 0;

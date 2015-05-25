@@ -82,7 +82,9 @@
 		}
 
 		function titleDisplay(e: Event) {
-			if (!titleOn && titleCounter < 100) {
+			
+			
+			if (!titleOn && titleCounter < 20) {
 				titleCounter++;
 			} else if (!titleOn) {
 				title.text = "Out of Hand";
@@ -104,13 +106,13 @@
 				title.alpha = 0;
 				titleOn = true;
 				titleCounter = 0;
-			} else if (titleCounter < 100 && title.alpha < 1 ) {
-				title.alpha += 0.01;
+			} else if (titleCounter < 80 && title.alpha < 1 ) {
+				title.alpha += 0.0150;
 				titleCounter++;
-			} else if (titleCounter < 200) {
+			} else if (titleCounter < 120) {
 				titleCounter++;
 			} else if (title.alpha > 0) {
-				title.alpha -= 0.01;
+				title.alpha -= 0.0150;
 			} else {
 				main.stage.removeChild(title);
 				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);

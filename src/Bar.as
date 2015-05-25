@@ -19,6 +19,7 @@
 		var enemy: Enemy;
 		var enemyHealth: Number = 100;
 		var enemymechs: EnemyMech;
+		var health: Number = 100;
 
 		public function Bar(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu) {
 			main.pass = true;
@@ -56,6 +57,7 @@
 			enemymechs = new EnemyMech(man, main, bg, enemy);
 			
 			this.addEventListener(Event.ENTER_FRAME, bulletCollision);
+			this.addEventListener(Event.ENTER_FRAME, enemyCollision);
 			enemy.gotoAndStop(1);
 
 
@@ -78,6 +80,20 @@
 					enemyHealth -= 5;
 				} else {
 					enemy.gotoAndStop(1);
+				}
+			}
+		}
+		
+		function enemyCollision(e: Event) {
+			if(enemymechs.dead == false){
+				trace("entrou");
+				if(Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 10){
+					health -= 10;
+					trace("hit" + health);
+				}
+				
+				if(health <= 0){
+					main.stage.frameRate = 0;
 				}
 			}
 		}
