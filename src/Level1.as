@@ -25,14 +25,14 @@
 		var textinscreen: Boolean = false;
 		var firstTime: Boolean;
 
-		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu,firstTimeCheck: Boolean) {
+		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu, firstTimeCheck: Boolean) {
 			this.firstTime = firstTimeCheck;
 			this.main = main;
 			man = new Man();
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
 			formatText = new FormatText(main);
-			
+
 
 			this.addChild(bg);
 			this.addChild(man);
@@ -42,11 +42,12 @@
 			bg.y = 720;
 
 			this.addChild(pauseMenu);
-			
 
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-			
+
 			this.mechanics.ground = 650;
 			this.mechanics.border1 = 0;
 			this.mechanics.border2 = -1324;
@@ -66,10 +67,10 @@
 			bouncer.x = 2535;
 			bouncer.y = -80;
 			bouncer.scaleX = -1;
-			
-			
+
+
 			this.addEventListener(Event.ENTER_FRAME, formatText.titleDisplay);
-			
+
 
 		}
 

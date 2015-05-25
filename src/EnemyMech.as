@@ -46,7 +46,7 @@
 
 		public function Move(e: Event) {
 			// Make enemy follow man, if he is near
-			if(dead == false) {
+			if (dead == false) {
 				if (Math.sqrt(Math.pow(man.x - (bg.x + enemy.x), 2)) < 600) {
 
 					// Change animation direction accordingly to move 

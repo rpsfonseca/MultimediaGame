@@ -27,7 +27,7 @@
 		var titleFormat: TextFormat = new TextFormat();
 		var titleOn: Boolean = false;
 		var titleCounter: Number = 0;
-		
+
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -84,49 +84,45 @@
 		}
 
 		function titleDisplay(e: Event) {
-			if (/*!titleOn && main.level1.firstTime == true*/titleCounter <1) {
-				
-				title.text = "Out of Hand";
+			if (!titleOn && main.level1.firstTime == true) {
+
 				title.x = 800;
 				title.y = 200;
-			
+
 				title.width = 800;
 				title.height = 100;
-					
+
 				title.defaultTextFormat = titleFormat;
 				title.embedFonts = true;
 				title.antiAliasType = AntiAliasType.ADVANCED;
 				title.selectable = false;
 				title.wordWrap = true;
 				title.filters = [outline];
-				title.alpha = 1;
-				titleOn = true;
-				titleCounter++;
+				title.alpha = 0;
+				title.text = "Out of Hand";
 				main.stage.addChild(title);
-				trace(main.stage.numChildren);
-			}				
-			/**} else  if(titleCounter < 20 && main.level1.firstTime == true){
+				titleOn = true;
+
+			} else if (titleCounter < 40 && main.level1.firstTime == true) {
 				titleCounter++;
-			} else if (titleCounter < 80 && title.alpha < 1 && main.level1.firstTime == true ) {
+			} else if (titleCounter < 120 && title.alpha < 1 && main.level1.firstTime == true) {
 				title.alpha += 0.0150;
 				titleCounter++;
-			} else if (titleCounter < 120 && main.level1.firstTime == true) {
+			} else if (titleCounter < 200 && main.level1.firstTime == true) {
 				titleCounter++;
 			} else if (title.alpha > 0 && main.level1.firstTime == true) {
 				title.alpha -= 0.0150;
 			} else {
-				
-				if(main.level1.firstTime == true){
-				main.stage.removeChild(title);
-				}
-				
-				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleSprint);
-				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleReady);
-				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.Move);
-				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
-				
 
-			}*/
+				if (main.level1.firstTime == true) {
+					main.stage.removeChild(title);
+				}
+
+
+				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+
+
+			}
 		}
 	}
 }
