@@ -7,6 +7,8 @@
 	import flash.events.TimerEvent;
 	import flash.events.Event;
 	import flash.utils.Timer;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 
 	public class FormatText {
 		var main: Main;
@@ -82,9 +84,15 @@
 		}
 
 		function titleDisplay(e: Event) {
-			if (!titleOn && titleCounter < 100) {
+			
+			
+			if (!titleOn && titleCounter < 20) {
 				titleCounter++;
 			} else if (!titleOn) {
+				main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+				main.stage.removeEventListener(KeyboardEvent.KEY_UP, main.controls.checkKeysUp);
+				main.stage.removeEventListener(MouseEvent.MOUSE_DOWN, main.controls.checkMouseDown);
+				main.stage.removeEventListener(MouseEvent.MOUSE_UP, main.controls.checkMouseUp);
 				title.text = "Out of Hand";
 				title.x = 800;
 				title.y = 200;
@@ -104,16 +112,21 @@
 				title.alpha = 0;
 				titleOn = true;
 				titleCounter = 0;
-			} else if (titleCounter < 100 && title.alpha < 1 ) {
-				title.alpha += 0.01;
+			} else if (titleCounter < 80 && title.alpha < 1 ) {
+				title.alpha += 0.0150;
 				titleCounter++;
-			} else if (titleCounter < 200) {
+			} else if (titleCounter < 120) {
 				titleCounter++;
 			} else if (title.alpha > 0) {
-				title.alpha -= 0.01;
+				title.alpha -= 0.0150;
 			} else {
 				main.stage.removeChild(title);
+				main.stage.addEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+				main.stage.addEventListener(KeyboardEvent.KEY_UP, main.controls.checkKeysUp);
+				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, main.controls.checkMouseDown);
+				main.stage.addEventListener(MouseEvent.MOUSE_UP, main.controls.checkMouseUp);
 				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+				
 
 			}
 		}
