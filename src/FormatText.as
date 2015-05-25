@@ -25,6 +25,7 @@
 		var titleFormat: TextFormat = new TextFormat();
 		var titleOn: Boolean = false;
 		var titleCounter: Number = 0;
+		
 
 		public function FormatText(main: Main) {
 			this.main = main;
@@ -81,17 +82,20 @@
 		}
 
 		function titleDisplay(e: Event) {
-			if (titleCounter < 300) {
+			if (!titleOn && titleCounter < 100) {
 				titleCounter++;
-				trace(titleCounter);
 			} else if (!titleOn) {
 				title.text = "Out of Hand";
 				title.x = 800;
 				title.y = 200;
+			
 				title.width = 800;
 				title.height = 100;
+				
+				
+				
 				title.defaultTextFormat = titleFormat;
-				title.embedFonts = true;
+				//title.embedFonts = true;
 				title.antiAliasType = AntiAliasType.ADVANCED;
 				title.selectable = false;
 				title.wordWrap = true;
@@ -99,17 +103,17 @@
 				main.stage.addChild(title);
 				title.alpha = 0;
 				titleOn = true;
-				trace("ola");
 				titleCounter = 0;
-			} else if (title.alpha < 1) {
+			} else if (titleCounter < 100 && title.alpha < 1 ) {
 				title.alpha += 0.01;
-			} else if (titleCounter < 120) {
+				titleCounter++;
+			} else if (titleCounter < 200) {
 				titleCounter++;
 			} else if (title.alpha > 0) {
 				title.alpha -= 0.01;
 			} else {
 				main.stage.removeChild(title);
-				//main.stage.removeEventListener(Event.ENTER_FRAME, titleDisplay);
+				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
 
 			}
 		}
