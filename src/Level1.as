@@ -42,11 +42,8 @@
 			
 
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
-			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Animate);
-			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
-			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleReady);
-
+			
 			this.mechanics.ground = 650;
 			this.mechanics.border1 = 0;
 			this.mechanics.border2 = -1324;

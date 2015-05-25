@@ -86,13 +86,10 @@
 		function titleDisplay(e: Event) {
 			
 			
-			if (!titleOn && titleCounter < 20) {
-				titleCounter++;
-			} else if (!titleOn) {
-				main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
-				main.stage.removeEventListener(KeyboardEvent.KEY_UP, main.controls.checkKeysUp);
-				main.stage.removeEventListener(MouseEvent.MOUSE_DOWN, main.controls.checkMouseDown);
-				main.stage.removeEventListener(MouseEvent.MOUSE_UP, main.controls.checkMouseUp);
+			/*if (!titleOn && titleCounter < 20) {
+				titleCounter++; */
+			if (!titleOn) {
+				
 				title.text = "Out of Hand";
 				title.x = 800;
 				title.y = 200;
@@ -112,6 +109,8 @@
 				title.alpha = 0;
 				titleOn = true;
 				titleCounter = 0;
+			} else  if(titleCounter < 20){
+				titleCounter++;
 			} else if (titleCounter < 80 && title.alpha < 1 ) {
 				title.alpha += 0.0150;
 				titleCounter++;
@@ -121,10 +120,10 @@
 				title.alpha -= 0.0150;
 			} else {
 				main.stage.removeChild(title);
-				main.stage.addEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
-				main.stage.addEventListener(KeyboardEvent.KEY_UP, main.controls.checkKeysUp);
-				main.stage.addEventListener(MouseEvent.MOUSE_DOWN, main.controls.checkMouseDown);
-				main.stage.addEventListener(MouseEvent.MOUSE_UP, main.controls.checkMouseUp);
+				
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleSprint);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.ToggleReady);
+				main.level1.man.addEventListener(Event.ENTER_FRAME, main.level1.mechanics.Move);
 				main.level1.removeEventListener(Event.ENTER_FRAME, titleDisplay);
 				
 
