@@ -24,6 +24,7 @@
 		var formatText: FormatText;
 		var textinscreen: Boolean = false;
 		var firstTime: Boolean;
+		var slow: SlowMotion;
 
 		public function Level1(main: Main, mechanics: Mechanics, pauseMenu: PauseMenu, firstTimeCheck: Boolean) {
 			this.firstTime = firstTimeCheck;
@@ -32,17 +33,19 @@
 			bg = new Lvl1();
 			this.mechanics = new Mechanics(man, this.main, bg);
 			formatText = new FormatText(main);
-
+			this.slow = new SlowMotion(main);
+			main.pass = true;
 
 			this.addChild(bg);
 			this.addChild(man);
-
+			
 			man.x = 400;
 			man.y = 650;
 			bg.y = 720;
 
 			this.addChild(pauseMenu);
-
+			
+			man.addEventListener(Event.ENTER_FRAME, this.mechanics.HealthBar);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Move);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.ToggleSprint);
 			man.addEventListener(Event.ENTER_FRAME, this.mechanics.Gravity);
@@ -70,8 +73,6 @@
 
 
 			this.addEventListener(Event.ENTER_FRAME, formatText.titleDisplay);
-
-
 		}
 
 		function Bouncer(e: Event) {
@@ -108,6 +109,7 @@
 					fadeout = true;
 					this.removeEventListener(Event.ENTER_FRAME, move2Bar);
 					main.stage.removeEventListener(KeyboardEvent.KEY_DOWN, main.controls.checkKeysDown);
+					
 					this.removeEventListener(Event.ENTER_FRAME, Bouncer);
 					main.controls.leftkeydown = false;
 					main.controls.upkeydown = false;

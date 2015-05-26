@@ -79,6 +79,7 @@
 				}
 			} else {
 				nextline = true;
+				skip = false;
 				delayTimer.removeEventListener(TimerEvent.TIMER, writeText);
 			}
 		}

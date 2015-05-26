@@ -87,15 +87,18 @@
 		}
 
 		function bulletCollision(e: Event) {
-			if (mechanics.i-- > 0) {
-				for (var j = 0; j < this.mechanics.mcArray.length; j++) {
+			if (mechanics.mcArray.length > 0) {
+				for (var j = 0; j < mechanics.mcArray.length; j++) {
 					for (var k = 0; k < enemyArray.length; k++) {
-						trace("mcArray" + mechanics.mcArray[j]);
-						trace("enemy" + enemyArray[k]);
 						if (enemyHealth[k] <= 0) {
 							enemyArray[k].gotoAndStop(4);
 							enemymechs[k].dead = true;
-						} else if (mechanics.mcArray[j].hitTestObject(enemyArray[k])) {
+							bg.removeChild(enemyArray[k]);
+							enemyArray[k] = enemyArray[enemyArray.length - 1];
+							enemyHealth[k] = enemyHealth[enemyHealth.length - 1];
+							enemyHealth.pop();
+							enemyArray.pop();
+						} else if (j < mechanics.mcArray.length && mechanics.mcArray[j].hitTestObject(enemyArray[k])) {
 							main.removeChild(mechanics.mcArray[j]);
 							mechanics.bulletSpeedx[j] = mechanics.bulletSpeedx[mechanics.mcArray.length - 1];
 							mechanics.bulletSpeedy[j] = mechanics.bulletSpeedy[mechanics.mcArray.length - 1];

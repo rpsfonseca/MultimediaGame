@@ -15,6 +15,8 @@
 		var mechanics: Mechanics;
 		var pauseMenu: PauseMenu;
 		var pass: Boolean = false;
+		var health: Number = 10;
+		var healthBar: Health;
 
 		public function Main() {
 			controls = new Controls(this);

@@ -7,8 +7,11 @@
 			this.main = main;
 		}
 		
-		function enterTheMatrix(
-
+		function enterTheMatrix(mechanics: Mechanics, enemyMechs: Array){
+			mechanics.speedX /= 4;
+			for(var i: Number = 0; i < enemyMechs.length; i++) {
+				enemyMechs[i].speedX /= 4;
+			}
+		}
 	}
-	
 }

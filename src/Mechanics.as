@@ -33,6 +33,7 @@
 		var shootArmSwitch: Boolean = false;
 		var shootFunction: Boolean = false;
 		var slide: Boolean = false;
+		var shooting: Boolean = false;
 
 		public function Mechanics(man: Man, main: Main, bg: Lvl) {
 			this.main = main;
@@ -146,7 +147,7 @@
 			if (main.controls.rkeydown) {
 				ready = true;
 				if (slide) {
-					
+
 					if ((speedX < 0 && orient == 2) || (speedX > 0 && orient == 1)) {
 						man.gotoAndStop(10);
 						man.rArm.x = 4;
@@ -224,6 +225,7 @@
 			}
 		}
 		public function Shoot(e: MouseEvent): void {
+			shooting = true;
 			if (!shootFunction) {
 				main.stage.addEventListener(Event.ENTER_FRAME, BulletMove);
 				shootFunction = true;
@@ -261,10 +263,10 @@
 			i++;
 		}
 
-		public function BulletMove(e: Event): void {
+		public function BulletMove(e: Event) {
 			for (var j = 0; j < mcArray.length; j++) {
-				mcArray[j].x += 80 * (bulletSpeedx[j]);
-				mcArray[j].y += 80 * (bulletSpeedy[j]);
+				mcArray[j].x += 20 * (bulletSpeedx[j]);
+				mcArray[j].y += 20 * (bulletSpeedy[j]);
 				if (mcArray[j].x > 1280 || mcArray[j].x < 0 || mcArray[j].y < 0 || mcArray[j].y > 720) {
 					main.removeChild(mcArray[j]);
 					bulletSpeedx[j] = bulletSpeedx[mcArray.length - 1];
@@ -274,6 +276,16 @@
 					i--;
 				}
 			}
+		}
+
+		public function HealthBar(e: Event) {
+			main.healthBar = new Health;
+			main.stage.addChild(main.healthBar);
+			main.healthBar.y = 680;
+			main.healthBar.x = 60;
+			main.healthBar.scaleX = 4;
+			main.healthBar.scaleY = 2;
+			main.healthBar.gotoAndStop(main.health+1);
 		}
 	}
 }
